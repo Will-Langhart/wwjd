@@ -24,9 +24,9 @@ const Index = () => {
   }, []);
 
   return (
-    <main className="min-h-screen">
-        {/* Hero Section */}
-        <section className="relative h-[60vh] overflow-hidden">
+    <main className="flex-1">
+      {/* Hero Section */}
+      <section className="relative h-[70vh] overflow-hidden">
           <div 
             className="absolute inset-0 bg-cover bg-center"
             style={{ backgroundImage: `url(${heroImage})` }}
@@ -47,9 +47,12 @@ const Index = () => {
           </div>
         </section>
 
-        {/* Products Section */}
+        {/* Featured Products Section */}
         <section className="container py-16">
-          <h2 className="text-3xl font-bold text-center mb-12">Our Collection</h2>
+          <div className="text-center mb-12">
+            <h2 className="text-3xl font-bold mb-4">Featured Collection</h2>
+            <p className="text-muted-foreground">Discover our latest faith-inspired designs</p>
+          </div>
           
           {loading ? (
             <div className="flex justify-center items-center min-h-[400px]">

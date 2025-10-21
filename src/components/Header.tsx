@@ -13,6 +13,9 @@ export const Header = () => {
         
         <nav className="flex items-center gap-6">
           <Link to="/" className="text-sm font-medium hover:text-primary transition-colors">
+            Home
+          </Link>
+          <Link to="/shop" className="text-sm font-medium hover:text-primary transition-colors">
             Shop
           </Link>
           <CartDrawer />

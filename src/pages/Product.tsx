@@ -82,7 +82,7 @@ const Product = () => {
   const currency = selectedVariant?.price.currencyCode || 'USD';
 
   return (
-    <main className="container py-8">
+    <main className="flex-1 container py-8">
         <Button 
           variant="ghost" 
           className="mb-6"
