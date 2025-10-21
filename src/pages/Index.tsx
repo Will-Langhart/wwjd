@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 import { getProducts, ShopifyProduct } from "@/lib/shopify";
 import { ProductCard } from "@/components/ProductCard";
-import { Header } from "@/components/Header";
 import { Loader2 } from "lucide-react";
 import heroImage from "@/assets/hero-image.jpg";
 
@@ -25,9 +24,7 @@ const Index = () => {
   }, []);
 
   return (
-    <>
-      <Header />
-      <main className="min-h-screen">
+    <main className="min-h-screen">
         {/* Hero Section */}
         <section className="relative h-[60vh] overflow-hidden">
           <div 
@@ -77,7 +74,6 @@ const Index = () => {
           )}
         </section>
       </main>
-    </>
   );
 };
 

@@ -5,7 +5,6 @@ import { Button } from "@/components/ui/button";
 import { ShoppingCart, ArrowLeft, Loader2 } from "lucide-react";
 import { useCartStore } from "@/stores/cartStore";
 import { toast } from "sonner";
-import { Header } from "@/components/Header";
 
 const Product = () => {
   const { handle } = useParams<{ handle: string }>();
@@ -57,29 +56,23 @@ const Product = () => {
 
   if (loading) {
     return (
-      <>
-        <Header />
-        <div className="min-h-screen flex items-center justify-center">
-          <Loader2 className="w-8 h-8 animate-spin text-primary" />
-        </div>
-      </>
+      <div className="min-h-screen flex items-center justify-center">
+        <Loader2 className="w-8 h-8 animate-spin text-primary" />
+      </div>
     );
   }
 
   if (!product) {
     return (
-      <>
-        <Header />
-        <div className="min-h-screen flex items-center justify-center">
-          <div className="text-center">
-            <h1 className="text-2xl font-bold mb-4">Product not found</h1>
-            <Button onClick={() => navigate('/')}>
-              <ArrowLeft className="w-4 h-4 mr-2" />
-              Back to Shop
-            </Button>
-          </div>
+      <div className="min-h-screen flex items-center justify-center">
+        <div className="text-center">
+          <h1 className="text-2xl font-bold mb-4">Product not found</h1>
+          <Button onClick={() => navigate('/')}>
+            <ArrowLeft className="w-4 h-4 mr-2" />
+            Back to Shop
+          </Button>
         </div>
-      </>
+      </div>
     );
   }
 
@@ -89,9 +82,7 @@ const Product = () => {
   const currency = selectedVariant?.price.currencyCode || 'USD';
 
   return (
-    <>
-      <Header />
-      <main className="container py-8">
+    <main className="container py-8">
         <Button 
           variant="ghost" 
           className="mb-6"
@@ -160,7 +151,6 @@ const Product = () => {
           </div>
         </div>
       </main>
-    </>
   );
 };
 
