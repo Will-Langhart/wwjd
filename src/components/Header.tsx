@@ -28,8 +28,8 @@ export const Header = () => {
         <Link to="/" className="flex items-center space-x-2">
           <img 
             src={wwjdLogo} 
-            alt="WWJD" 
-            className="h-10 w-auto opacity-70 hover:opacity-90 transition-opacity mix-blend-multiply dark:mix-blend-screen"
+            alt="WWJD Logo" 
+            className="h-10 w-auto hover:opacity-80 transition-opacity dark:invert"
           />
         </Link>
         
