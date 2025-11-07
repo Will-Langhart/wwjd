@@ -73,6 +73,28 @@ export const useWishlist = () => {
 
       if (error) throw error;
       setWishlistItems([...wishlistItems, product.id]);
+      
+      // Send wishlist notification email
+      const { data: profile } = await supabase
+        .from('profiles')
+        .select('email')
+        .eq('id', userId)
+        .single();
+
+      if (profile?.email) {
+        try {
+          await supabase.functions.invoke('send-notification', {
+            body: {
+              type: 'wishlist',
+              to: profile.email,
+              data: { productTitle: product.title }
+            }
+          });
+        } catch (emailError) {
+          console.error('Failed to send wishlist email:', emailError);
+        }
+      }
+      
       toast.success("Added to wishlist");
       return true;
     } catch (error: any) {
