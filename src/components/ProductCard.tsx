@@ -5,6 +5,13 @@ import { ShoppingCart } from "lucide-react";
 import { useCartStore } from "@/stores/cartStore";
 import { toast } from "sonner";
 import { Link } from "react-router-dom";
+import {
+  Carousel,
+  CarouselContent,
+  CarouselItem,
+  CarouselNext,
+  CarouselPrevious,
+} from "@/components/ui/carousel";
 
 interface ProductCardProps {
   product: ShopifyProduct;
@@ -34,7 +41,7 @@ export const ProductCard = ({ product }: ProductCardProps) => {
     });
   };
 
-  const imageUrl = node.images.edges[0]?.node.url;
+  const images = node.images.edges;
   const price = parseFloat(node.priceRange.minVariantPrice.amount).toFixed(2);
   const currency = node.priceRange.minVariantPrice.currencyCode;
 
@@ -42,12 +49,30 @@ export const ProductCard = ({ product }: ProductCardProps) => {
     <Card className="group overflow-hidden transition-all duration-300 hover:shadow-[var(--shadow-elegant)]">
       <Link to={`/product/${node.handle}`}>
         <div className="aspect-square overflow-hidden bg-secondary/10">
-          {imageUrl ? (
-            <img
-              src={imageUrl}
-              alt={node.title}
-              className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
-            />
+          {images.length > 0 ? (
+            images.length === 1 ? (
+              <img
+                src={images[0].node.url}
+                alt={images[0].node.altText || node.title}
+                className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+              />
+            ) : (
+              <Carousel className="w-full h-full">
+                <CarouselContent className="h-full">
+                  {images.map((image, index) => (
+                    <CarouselItem key={index} className="h-full">
+                      <img
+                        src={image.node.url}
+                        alt={image.node.altText || `${node.title} - Image ${index + 1}`}
+                        className="w-full h-full object-cover"
+                      />
+                    </CarouselItem>
+                  ))}
+                </CarouselContent>
+                <CarouselPrevious className="left-2" />
+                <CarouselNext className="right-2" />
+              </Carousel>
+            )
           ) : (
             <div className="w-full h-full flex items-center justify-center bg-secondary/20">
               <span className="text-muted-foreground">No image</span>
