@@ -10,7 +10,7 @@ export const Header = () => {
           <img 
             src={wwjdLogo} 
             alt="WWJD" 
-            className="h-10 w-auto opacity-70 hover:opacity-90 transition-opacity"
+            className="h-10 w-auto opacity-70 hover:opacity-90 transition-opacity mix-blend-multiply dark:mix-blend-screen"
           />
         </Link>
         
