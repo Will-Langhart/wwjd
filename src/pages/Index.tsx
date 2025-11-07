@@ -12,7 +12,11 @@ const Index = () => {
     const fetchProducts = async () => {
       try {
         const data = await getProducts(20);
-        setProducts(data);
+        // Deduplicate products by title, keeping the first occurrence
+        const uniqueProducts = data.filter((product, index, self) =>
+          index === self.findIndex(p => p.node.title === product.node.title)
+        );
+        setProducts(uniqueProducts);
       } catch (error) {
         console.error('Error fetching products:', error);
       } finally {
