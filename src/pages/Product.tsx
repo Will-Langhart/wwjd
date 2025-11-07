@@ -5,6 +5,13 @@ import { Button } from "@/components/ui/button";
 import { ShoppingCart, ArrowLeft, Loader2 } from "lucide-react";
 import { useCartStore } from "@/stores/cartStore";
 import { toast } from "sonner";
+import {
+  Carousel,
+  CarouselContent,
+  CarouselItem,
+  CarouselNext,
+  CarouselPrevious,
+} from "@/components/ui/carousel";
 
 const Product = () => {
   const { handle } = useParams<{ handle: string }>();
@@ -93,15 +100,31 @@ const Product = () => {
         </Button>
 
         <div className="grid md:grid-cols-2 gap-8">
-          <div className="aspect-square overflow-hidden rounded-lg bg-secondary/10">
-            {node.images.edges[0]?.node.url ? (
-              <img
-                src={node.images.edges[0].node.url}
-                alt={node.title}
-                className="w-full h-full object-cover"
-              />
+          <div className="w-full">
+            {node.images.edges.length > 0 ? (
+              <Carousel className="w-full">
+                <CarouselContent>
+                  {node.images.edges.map((image, index) => (
+                    <CarouselItem key={index}>
+                      <div className="aspect-square overflow-hidden rounded-lg bg-secondary/10">
+                        <img
+                          src={image.node.url}
+                          alt={image.node.altText || `${node.title} - Image ${index + 1}`}
+                          className="w-full h-full object-cover"
+                        />
+                      </div>
+                    </CarouselItem>
+                  ))}
+                </CarouselContent>
+                {node.images.edges.length > 1 && (
+                  <>
+                    <CarouselPrevious className="left-2" />
+                    <CarouselNext className="right-2" />
+                  </>
+                )}
+              </Carousel>
             ) : (
-              <div className="w-full h-full flex items-center justify-center">
+              <div className="aspect-square overflow-hidden rounded-lg bg-secondary/10 flex items-center justify-center">
                 <span className="text-muted-foreground">No image</span>
               </div>
             )}
