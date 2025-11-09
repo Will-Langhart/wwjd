@@ -92,7 +92,7 @@ export const ProductCard = ({ product }: ProductCardProps) => {
             {node.description}
           </p>
         )}
-        <p className="text-xl font-bold text-primary">
+        <p className="text-xl font-bold text-foreground">
           {currency} ${price}
         </p>
       </CardContent>
