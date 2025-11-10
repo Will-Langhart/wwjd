@@ -30,29 +30,47 @@ const Index = () => {
   return (
     <main className="flex-1">
       {/* Hero Section */}
-      <section className="relative h-[70vh] overflow-hidden">
+      <section className="relative h-[80vh] min-h-[600px] overflow-hidden">
           <div 
             className="absolute inset-0 bg-cover bg-center"
             style={{ backgroundImage: `url(${heroImage})` }}
           >
-            <div className="absolute inset-0 bg-gradient-to-b from-primary/60 via-primary/40 to-background" />
+            <div className="absolute inset-0 bg-gradient-to-b from-black/50 via-black/40 to-background" />
           </div>
           
-          <div className="relative container h-full flex flex-col items-center justify-center text-center">
-            <h1 className="text-5xl md:text-7xl font-bold text-white mb-4 drop-shadow-lg">
-              WWJD: The Narrow Path
-            </h1>
-            <p className="text-xl md:text-2xl text-white/90 mb-8 max-w-2xl drop-shadow-md">
-              Faith-inspired fashion for the journey ahead
-            </p>
-            <p className="text-lg text-white/80 italic drop-shadow-md">
-              "Enter through the narrow gate" - Matthew 7:13
-            </p>
+          <div className="relative container h-full flex flex-col items-center justify-center text-center px-4">
+            <div className="max-w-4xl mx-auto space-y-6 animate-fade-in">
+              <h1 className="text-5xl md:text-7xl lg:text-8xl font-bold text-white mb-6 drop-shadow-2xl tracking-tight">
+                WWJD: The Narrow Path
+              </h1>
+              <p className="text-xl md:text-2xl lg:text-3xl text-white/95 font-light max-w-3xl mx-auto drop-shadow-lg leading-relaxed">
+                Faith-inspired fashion for the journey ahead
+              </p>
+              <div className="pt-4 pb-8">
+                <p className="text-base md:text-lg text-white/90 italic drop-shadow-md font-serif">
+                  "Enter through the narrow gate" — Matthew 7:13
+                </p>
+              </div>
+              <div className="flex flex-col sm:flex-row gap-4 justify-center pt-2">
+                <a 
+                  href="/shop"
+                  className="inline-flex items-center justify-center px-8 py-4 text-lg font-semibold text-white bg-primary hover:bg-primary/90 rounded-lg shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105"
+                >
+                  Shop The Collection
+                </a>
+                <a 
+                  href="#featured"
+                  className="inline-flex items-center justify-center px-8 py-4 text-lg font-semibold text-white bg-white/10 hover:bg-white/20 backdrop-blur-sm border-2 border-white/30 rounded-lg shadow-lg transition-all duration-300 hover:scale-105"
+                >
+                  Explore
+                </a>
+              </div>
+            </div>
           </div>
         </section>
 
         {/* Featured Products Section */}
-        <section className="container py-16">
+        <section id="featured" className="container py-16">
           <div className="text-center mb-12">
             <h2 className="text-3xl font-bold mb-4">The Foundation</h2>
             <p className="text-muted-foreground">Discover our latest faith-inspired designs</p>
