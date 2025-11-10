@@ -138,11 +138,11 @@ const Product = () => {
               </p>
             </div>
 
-            {node.description && (
+            {node.descriptionHtml && (
               <div className="prose prose-sm max-w-none">
                 <div 
                   className="product-description space-y-4"
-                  dangerouslySetInnerHTML={{ __html: node.description }}
+                  dangerouslySetInnerHTML={{ __html: node.descriptionHtml }}
                 />
               </div>
             )}
