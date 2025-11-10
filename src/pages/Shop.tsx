@@ -33,7 +33,7 @@ const Shop = () => {
         <div className="absolute inset-0 bg-gradient-to-br from-primary/5 via-transparent to-accent/5" />
         <div className="relative container text-center">
           <h1 className="text-5xl md:text-6xl font-bold mb-6 bg-gradient-to-r from-primary via-primary to-accent bg-clip-text text-transparent">
-            Our Collection
+            The Foundation
           </h1>
           <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
             Faith-inspired apparel designed to share your journey on the narrow path
