@@ -41,7 +41,8 @@ const Index = () => {
           <div className="relative container h-full flex flex-col items-center justify-center text-center px-4">
             <div className="max-w-4xl mx-auto space-y-6 animate-fade-in">
               <h1 className="text-6xl md:text-8xl lg:text-9xl font-heading text-white mb-6 drop-shadow-2xl tracking-wider">
-                WWJD: THE NARROW PATH
+                <div className="mb-2">WWJD</div>
+                <div>THE NARROW PATH</div>
               </h1>
               <p className="text-xl md:text-2xl lg:text-3xl text-white/95 font-light max-w-3xl mx-auto drop-shadow-lg leading-relaxed">
                 Faith-inspired fashion for the journey ahead
