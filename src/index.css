@@ -147,4 +147,25 @@ All colors MUST be HSL.
   .product-description hr {
     @apply border-t border-border my-6;
   }
+
+  .product-description table {
+    @apply w-full border-collapse mb-6;
+  }
+
+  .product-description table th,
+  .product-description table td {
+    @apply border border-border px-4 py-2 text-left;
+  }
+
+  .product-description table th {
+    @apply bg-secondary font-bold;
+  }
+
+  .product-description table td {
+    @apply bg-background;
+  }
+
+  .product-description table tr:hover td {
+    @apply bg-secondary/50;
+  }
 }
