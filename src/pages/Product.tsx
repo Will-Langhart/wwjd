@@ -139,9 +139,11 @@ const Product = () => {
             </div>
 
             {node.description && (
-              <div>
-                <h2 className="text-lg font-semibold mb-2">Description</h2>
-                <p className="text-muted-foreground">{node.description}</p>
+              <div className="prose prose-sm max-w-none">
+                <div 
+                  className="product-description space-y-4"
+                  dangerouslySetInnerHTML={{ __html: node.description }}
+                />
               </div>
             )}
 
