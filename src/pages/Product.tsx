@@ -108,6 +108,11 @@ const Product = () => {
   const { node } = product;
   const price = selectedVariant ? parseFloat(selectedVariant.price.amount).toFixed(2) : '0.00';
   const currency = selectedVariant?.price.currencyCode || 'USD';
+  
+  // Get images to display - show variant image if available, otherwise show all product images
+  const displayImages = selectedVariant?.image 
+    ? [{ node: selectedVariant.image }] 
+    : node.images.edges;
 
   return (
     <main className="flex-1 container py-8">
@@ -122,10 +127,10 @@ const Product = () => {
 
         <div className="grid md:grid-cols-2 gap-8">
           <div className="w-full space-y-4">
-            {node.images.edges.length > 0 ? (
-              <Carousel className="w-full">
+            {displayImages.length > 0 ? (
+              <Carousel className="w-full" key={selectedVariant?.id}>
                 <CarouselContent>
-                  {node.images.edges.map((image, index) => (
+                  {displayImages.map((image, index) => (
                     <CarouselItem key={index}>
                       <div className="aspect-square overflow-hidden rounded-lg bg-secondary/10">
                         <img
@@ -137,7 +142,7 @@ const Product = () => {
                     </CarouselItem>
                   ))}
                 </CarouselContent>
-                {node.images.edges.length > 1 && (
+                {displayImages.length > 1 && (
                   <>
                     <CarouselPrevious className="left-2" />
                     <CarouselNext className="right-2" />
