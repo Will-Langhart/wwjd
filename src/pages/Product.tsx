@@ -100,7 +100,7 @@ const Product = () => {
         </Button>
 
         <div className="grid md:grid-cols-2 gap-8">
-          <div className="w-full">
+          <div className="w-full space-y-4">
             {node.images.edges.length > 0 ? (
               <Carousel className="w-full">
                 <CarouselContent>
@@ -128,6 +128,23 @@ const Product = () => {
                 <span className="text-muted-foreground">No image</span>
               </div>
             )}
+            
+            {node.variants.edges.length > 1 && (
+              <div>
+                <h2 className="text-lg font-semibold mb-2">Options</h2>
+                <div className="flex flex-wrap gap-2">
+                  {node.variants.edges.map((variant, index) => (
+                    <Button
+                      key={variant.node.id}
+                      variant={selectedVariantIndex === index ? "default" : "outline"}
+                      onClick={() => setSelectedVariantIndex(index)}
+                    >
+                      {variant.node.title}
+                    </Button>
+                  ))}
+                </div>
+              </div>
+            )}
           </div>
 
           <div className="space-y-6">
@@ -147,24 +164,7 @@ const Product = () => {
               </div>
             )}
 
-            {node.variants.edges.length > 1 && (
-              <div>
-                <h2 className="text-lg font-semibold mb-2">Options</h2>
-                <div className="flex flex-wrap gap-2">
-                  {node.variants.edges.map((variant, index) => (
-                    <Button
-                      key={variant.node.id}
-                      variant={selectedVariantIndex === index ? "default" : "outline"}
-                      onClick={() => setSelectedVariantIndex(index)}
-                    >
-                      {variant.node.title}
-                    </Button>
-                  ))}
-                </div>
-              </div>
-            )}
-
-            <Button 
+            <Button
               size="lg" 
               className="w-full"
               onClick={handleAddToCart}
