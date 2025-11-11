@@ -4,32 +4,46 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { useToast } from "@/hooks/use-toast";
+import { supabase } from "@/integrations/supabase/client";
 
 export const ChatBubble = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [message, setMessage] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
   const { toast } = useToast();
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    
-    // Create mailto link with form data
-    const subject = encodeURIComponent(`Contact from ${name}`);
-    const body = encodeURIComponent(`Name: ${name}\nEmail: ${email}\n\nMessage:\n${message}`);
-    window.location.href = `mailto:wwjd.apparel@outlook.com?subject=${subject}&body=${body}`;
-    
-    toast({
-      title: "Opening email client",
-      description: "Your email client will open with your message.",
-    });
-    
-    // Reset form
-    setName("");
-    setEmail("");
-    setMessage("");
-    setIsOpen(false);
+    setIsLoading(true);
+
+    try {
+      const { error } = await supabase.functions.invoke('send-contact-email', {
+        body: { name, email, message }
+      });
+
+      if (error) throw error;
+
+      toast({
+        title: "Message sent!",
+        description: "We'll get back to you soon.",
+      });
+
+      // Reset form
+      setName("");
+      setEmail("");
+      setMessage("");
+      setIsOpen(false);
+    } catch (error) {
+      toast({
+        title: "Error",
+        description: "Failed to send message. Please try again.",
+        variant: "destructive",
+      });
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   return (
@@ -98,9 +112,9 @@ export const ChatBubble = () => {
                 />
               </div>
 
-              <Button type="submit" className="w-full" size="lg">
+              <Button type="submit" className="w-full" size="lg" disabled={isLoading}>
                 <Send className="w-4 h-4 mr-2" />
-                Send Message
+                {isLoading ? "Sending..." : "Send Message"}
               </Button>
             </form>
           </div>
