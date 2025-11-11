@@ -121,7 +121,7 @@ const STOREFRONT_QUERY = `
               }
             }
           }
-          variants(first: 10) {
+          variants(first: 250) {
             edges {
               node {
                 id
@@ -170,23 +170,23 @@ const PRODUCT_BY_HANDLE_QUERY = `
           }
         }
       }
-      variants(first: 10) {
-        edges {
-          node {
-            id
-            title
-            price {
-              amount
-              currencyCode
-            }
-            availableForSale
-            selectedOptions {
-              name
-              value
+          variants(first: 250) {
+            edges {
+              node {
+                id
+                title
+                price {
+                  amount
+                  currencyCode
+                }
+                availableForSale
+                selectedOptions {
+                  name
+                  value
+                }
+              }
             }
           }
-        }
-      }
       options {
         name
         values

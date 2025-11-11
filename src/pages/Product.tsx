@@ -12,13 +12,20 @@ import {
   CarouselNext,
   CarouselPrevious,
 } from "@/components/ui/carousel";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 
 const Product = () => {
   const { handle } = useParams<{ handle: string }>();
   const navigate = useNavigate();
   const [product, setProduct] = useState<ShopifyProduct | null>(null);
   const [loading, setLoading] = useState(true);
-  const [selectedVariantIndex, setSelectedVariantIndex] = useState(0);
+  const [selectedOptions, setSelectedOptions] = useState<Record<string, string>>({});
   const addItem = useCartStore(state => state.addItem);
 
   useEffect(() => {
@@ -28,6 +35,17 @@ const Product = () => {
       try {
         const data = await getProductByHandle(handle);
         setProduct(data);
+        
+        // Set default selected options to first available variant
+        if (data && data.node.options.length > 0) {
+          const defaultOptions: Record<string, string> = {};
+          data.node.options.forEach(option => {
+            if (option.values.length > 0) {
+              defaultOptions[option.name.toLowerCase()] = option.values[0];
+            }
+          });
+          setSelectedOptions(defaultOptions);
+        }
       } catch (error) {
         console.error('Error fetching product:', error);
         toast.error('Failed to load product');
@@ -39,11 +57,15 @@ const Product = () => {
     fetchProduct();
   }, [handle]);
 
+  // Find the variant that matches the selected options
+  const selectedVariant = product?.node.variants.edges.find(({ node }) => {
+    return node.selectedOptions.every(option => 
+      selectedOptions[option.name.toLowerCase()] === option.value
+    );
+  })?.node;
+
   const handleAddToCart = () => {
-    if (!product) return;
-    
-    const selectedVariant = product.node.variants.edges[selectedVariantIndex]?.node;
-    if (!selectedVariant) return;
+    if (!product || !selectedVariant) return;
 
     const cartItem = {
       product,
@@ -84,7 +106,6 @@ const Product = () => {
   }
 
   const { node } = product;
-  const selectedVariant = node.variants.edges[selectedVariantIndex]?.node;
   const price = selectedVariant ? parseFloat(selectedVariant.price.amount).toFixed(2) : '0.00';
   const currency = selectedVariant?.price.currencyCode || 'USD';
 
@@ -129,20 +150,35 @@ const Product = () => {
               </div>
             )}
             
-            {node.variants.edges.length > 1 && (
-              <div>
-                <h2 className="text-lg font-semibold mb-2">Options</h2>
-                <div className="flex flex-wrap gap-2">
-                  {node.variants.edges.map((variant, index) => (
-                    <Button
-                      key={variant.node.id}
-                      variant={selectedVariantIndex === index ? "default" : "outline"}
-                      onClick={() => setSelectedVariantIndex(index)}
+            {node.options.length > 0 && (
+              <div className="space-y-4">
+                {node.options.map((option) => (
+                  <div key={option.name}>
+                    <label className="text-sm font-semibold mb-2 block">
+                      {option.name.charAt(0).toUpperCase() + option.name.slice(1)}
+                    </label>
+                    <Select
+                      value={selectedOptions[option.name.toLowerCase()] || ''}
+                      onValueChange={(value) => 
+                        setSelectedOptions(prev => ({
+                          ...prev,
+                          [option.name.toLowerCase()]: value
+                        }))
+                      }
                     >
-                      {variant.node.title}
-                    </Button>
-                  ))}
-                </div>
+                      <SelectTrigger className="w-full">
+                        <SelectValue placeholder={`Select ${option.name}`} />
+                      </SelectTrigger>
+                      <SelectContent>
+                        {option.values.map((value) => (
+                          <SelectItem key={value} value={value}>
+                            {value}
+                          </SelectItem>
+                        ))}
+                      </SelectContent>
+                    </Select>
+                  </div>
+                ))}
               </div>
             )}
           </div>
