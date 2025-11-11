@@ -40,10 +40,10 @@ const handler = async (req: Request): Promise<Response> => {
         "Authorization": `Bearer ${RESEND_API_KEY}`,
       },
       body: JSON.stringify({
-        from: "WWJD Contact <contact@send.wwjdthenarrowpath.store>",
-        to: ["wwjd.apparel@outlook.com"],
+        from: "WWJD Contact <onboarding@resend.dev>",
+        to: ["theholotrout@gmail.com"],
         reply_to: email,
-        subject: `Contact from ${name}`,
+        subject: `[WWJD Contact] From ${name}`,
         html: `
           <h2>New Contact Form Submission</h2>
           <p><strong>Name:</strong> ${name}</p>
