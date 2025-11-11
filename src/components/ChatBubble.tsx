@@ -18,7 +18,7 @@ export const ChatBubble = () => {
     // Create mailto link with form data
     const subject = encodeURIComponent(`Contact from ${name}`);
     const body = encodeURIComponent(`Name: ${name}\nEmail: ${email}\n\nMessage:\n${message}`);
-    window.location.href = `mailto:support@wwjdthenarrowpath.com?subject=${subject}&body=${body}`;
+    window.location.href = `mailto:wwjd.apparel@outlook.com?subject=${subject}&body=${body}`;
     
     toast({
       title: "Opening email client",
