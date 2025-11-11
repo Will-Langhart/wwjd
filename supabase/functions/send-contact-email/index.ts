@@ -41,9 +41,9 @@ const handler = async (req: Request): Promise<Response> => {
       },
       body: JSON.stringify({
         from: "WWJD Contact <onboarding@resend.dev>",
-        to: ["wwjd.apparel@outlook.com"],
+        to: ["theholotrout@gmail.com"], // Temporary: Change to verified domain email after domain verification
         reply_to: email,
-        subject: `Contact from ${name}`,
+        subject: `[TEST] Contact from ${name} - Will forward to wwjd.apparel@outlook.com`,
         html: `
           <h2>New Contact Form Submission</h2>
           <p><strong>Name:</strong> ${name}</p>
