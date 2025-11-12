@@ -51,25 +51,29 @@ export const ChatBubble = () => {
       {/* Chat Bubble Button */}
       <button
         onClick={() => setIsOpen(!isOpen)}
-        className="fixed bottom-6 right-6 z-50 flex items-center gap-3 px-6 py-4 rounded-full bg-accent text-accent-foreground shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105 group"
+        className="fixed bottom-6 right-6 z-50 w-16 h-16 rounded-full bg-[#ff9800] hover:bg-[#fb8c00] text-white shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-110 flex items-center justify-center group"
         aria-label="Open chat"
       >
-        <MessageCircle className="w-6 h-6" />
-        <span className="font-medium">How can we help?</span>
+        <MessageCircle className="w-7 h-7" />
       </button>
 
       {/* Chat Window */}
       {isOpen && (
         <div className="fixed bottom-24 right-6 z-50 w-96 bg-background border border-border rounded-lg shadow-2xl animate-in slide-in-from-bottom-5">
           {/* Header */}
-          <div className="flex items-center justify-between p-4 border-b border-border bg-accent text-accent-foreground rounded-t-lg">
-            <div className="flex items-center gap-2">
-              <MessageCircle className="w-5 h-5" />
-              <h3 className="font-semibold">Contact Us</h3>
+          <div className="flex items-center justify-between p-4 bg-[#ff9800] text-white rounded-t-lg">
+            <div className="flex items-center gap-3">
+              <div className="w-10 h-10 rounded-full bg-white flex items-center justify-center">
+                <MessageCircle className="w-6 h-6 text-[#ff9800]" />
+              </div>
+              <div>
+                <h3 className="font-semibold">Contact Us 👋</h3>
+                <p className="text-xs text-white/90">We reply immediately</p>
+              </div>
             </div>
             <button
               onClick={() => setIsOpen(false)}
-              className="hover:bg-accent/90 rounded p-1 transition-colors"
+              className="hover:bg-white/20 rounded p-1 transition-colors"
               aria-label="Close chat"
             >
               <X className="w-5 h-5" />
@@ -112,7 +116,12 @@ export const ChatBubble = () => {
                 />
               </div>
 
-              <Button type="submit" className="w-full" size="lg" disabled={isLoading}>
+              <Button 
+                type="submit" 
+                className="w-full bg-[#ff9800] hover:bg-[#fb8c00] text-white" 
+                size="lg" 
+                disabled={isLoading}
+              >
                 <Send className="w-4 h-4 mr-2" />
                 {isLoading ? "Sending..." : "Send Message"}
               </Button>

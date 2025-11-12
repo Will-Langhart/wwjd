@@ -6,6 +6,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { Header } from "./components/Header";
 import { Footer } from "./components/Footer";
 import { QuickCEPChat } from "./components/QuickCEPChat";
+import { ChatBubble } from "./components/ChatBubble";
 import Index from "./pages/Index";
 import Shop from "./pages/Shop";
 import Product from "./pages/Product";
@@ -34,6 +35,7 @@ const App = () => (
           </Routes>
           <Footer />
         </div>
+        <ChatBubble />
         <QuickCEPChat />
       </BrowserRouter>
     </TooltipProvider>
