@@ -123,8 +123,9 @@ const Product = () => {
           Back to Shop
         </Button>
 
-        <div className="grid md:grid-cols-2 gap-8">
-          <div className="w-full space-y-4">
+        <div className="max-w-6xl mx-auto">
+          {/* Image Carousel */}
+          <div className="mb-6">
             {displayImages.length > 0 ? (
               <Carousel className="w-full relative" key={selectedVariant?.id}>
                 <CarouselContent>
@@ -152,9 +153,29 @@ const Product = () => {
                 <span className="text-muted-foreground">No image</span>
               </div>
             )}
-            
+          </div>
+
+          {/* Product Info */}
+          <div className="space-y-6">
+            <div>
+              <h1 className="text-3xl md:text-4xl font-bold mb-2">{node.title}</h1>
+              <p className="text-2xl md:text-3xl font-bold text-primary">
+                {currency} ${price}
+              </p>
+            </div>
+
+            {node.descriptionHtml && (
+              <div className="prose prose-sm max-w-none">
+                <div 
+                  className="product-description space-y-4"
+                  dangerouslySetInnerHTML={{ __html: node.descriptionHtml }}
+                />
+              </div>
+            )}
+
+            {/* Variant Selectors */}
             {node.options.length > 0 && (
-              <div className="space-y-4">
+              <div className="space-y-4 border-t pt-6">
                 {node.options.map((option) => (
                   <div key={option.name}>
                     <label className="text-sm font-semibold mb-2 block">
@@ -185,33 +206,16 @@ const Product = () => {
               </div>
             )}
             
+            {/* Add to Cart Button */}
             <Button
               size="lg" 
-              className="w-full mt-4"
+              className="w-full sticky bottom-4 md:static shadow-lg md:shadow-none"
               onClick={handleAddToCart}
               disabled={!selectedVariant?.availableForSale}
             >
               <ShoppingCart className="w-5 h-5 mr-2" />
               {selectedVariant?.availableForSale ? 'Add to Cart' : 'Out of Stock'}
             </Button>
-          </div>
-
-          <div className="space-y-6">
-            <div>
-              <h1 className="text-4xl font-bold mb-2">{node.title}</h1>
-              <p className="text-3xl font-bold text-primary">
-                {currency} ${price}
-              </p>
-            </div>
-
-            {node.descriptionHtml && (
-              <div className="prose prose-sm max-w-none">
-                <div 
-                  className="product-description space-y-4"
-                  dangerouslySetInnerHTML={{ __html: node.descriptionHtml }}
-                />
-              </div>
-            )}
           </div>
         </div>
       </main>
