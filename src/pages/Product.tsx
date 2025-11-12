@@ -109,8 +109,21 @@ const Product = () => {
   const price = selectedVariant ? parseFloat(selectedVariant.price.amount).toFixed(2) : '0.00';
   const currency = selectedVariant?.price.currencyCode || 'USD';
   
-  // Always display all product images
-  const displayImages = node.images.edges;
+  // Display variant image first if it exists, then all product images
+  const displayImages = (() => {
+    if (selectedVariant?.image) {
+      // Filter out the variant image from product images to avoid duplicates
+      const otherImages = node.images.edges.filter(
+        img => img.node.url !== selectedVariant.image!.url
+      );
+      // Put variant image first
+      return [
+        { node: selectedVariant.image },
+        ...otherImages
+      ];
+    }
+    return node.images.edges;
+  })();
 
   return (
     <main className="flex-1 container py-8">
