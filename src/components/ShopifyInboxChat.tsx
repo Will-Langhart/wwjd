@@ -1,25 +1,13 @@
 import { useEffect } from "react";
 
-const SHOPIFY_STORE_DOMAIN = "narrow-path-shop-pwpob.myshopify.com";
+const SHOPIFY_CHAT_SCRIPT_URL = "https://cdn.shopify.com/shopifycloud/shopify_chat/storefront/shopifyChatV1.js";
 
 export const ShopifyInboxChat = () => {
   useEffect(() => {
     // Load Shopify Inbox script
     const script = document.createElement("script");
-    script.src = `https://cdn.shopify.com/shopifycloud/shopify_chat/storefront/shopifyChatV1.js`;
+    script.src = SHOPIFY_CHAT_SCRIPT_URL;
     script.async = true;
-    
-    script.onload = () => {
-      // Initialize Shopify Chat
-      if (window.ShopifyChat) {
-        window.ShopifyChat.init({
-          shop: SHOPIFY_STORE_DOMAIN,
-          buttonColor: "#ff9800",
-          buttonIcon: "chat",
-          horizontalPosition: "right",
-        });
-      }
-    };
 
     document.body.appendChild(script);
 
@@ -33,17 +21,3 @@ export const ShopifyInboxChat = () => {
 
   return null; // Shopify Inbox injects its own widget
 };
-
-// Extend Window interface for TypeScript
-declare global {
-  interface Window {
-    ShopifyChat?: {
-      init: (config: {
-        shop: string;
-        buttonColor?: string;
-        buttonIcon?: string;
-        horizontalPosition?: string;
-      }) => void;
-    };
-  }
-}
