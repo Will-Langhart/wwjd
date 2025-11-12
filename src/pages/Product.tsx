@@ -136,9 +136,9 @@ const Product = () => {
           Back to Shop
         </Button>
 
-        <div className="max-w-6xl mx-auto">
-          {/* Image Carousel */}
-          <div className="mb-6 max-w-lg mx-auto">
+        <div className="grid md:grid-cols-2 gap-8">
+          {/* Image Carousel - Left Column */}
+          <div className="w-full">
             {displayImages.length > 0 ? (
               <Carousel className="w-full relative" key={selectedVariant?.id}>
                 <CarouselContent>
@@ -168,7 +168,7 @@ const Product = () => {
             )}
           </div>
 
-          {/* Product Info */}
+          {/* Product Details - Right Column */}
           <div className="space-y-6">
             <div>
               <h1 className="text-3xl md:text-4xl font-bold mb-2">{node.title}</h1>
