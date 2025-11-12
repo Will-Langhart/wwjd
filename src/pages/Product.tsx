@@ -138,7 +138,7 @@ const Product = () => {
 
         <div className="max-w-6xl mx-auto">
           {/* Image Carousel */}
-          <div className="mb-6">
+          <div className="mb-6 max-w-lg mx-auto">
             {displayImages.length > 0 ? (
               <Carousel className="w-full relative" key={selectedVariant?.id}>
                 <CarouselContent>
