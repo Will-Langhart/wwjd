@@ -56,7 +56,9 @@ const handler = async (req: Request): Promise<Response> => {
 
     if (!emailResponse.ok) {
       const error = await emailResponse.text();
-      throw new Error(`Resend API error: ${error}`);
+      console.error("Resend API error response:", error);
+      console.error("Resend API status:", emailResponse.status);
+      throw new Error(`Resend API error (${emailResponse.status}): ${error}`);
     }
 
     console.log("Contact email sent successfully");
