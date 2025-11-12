@@ -11,10 +11,12 @@ import {
 } from "@/components/ui/sheet";
 import { ShoppingCart, Minus, Plus, Trash2, ExternalLink, Loader2 } from "lucide-react";
 import { useCartStore } from "@/stores/cartStore";
+import { useIsMobile } from "@/hooks/use-mobile";
 import { toast } from "sonner";
 
 export const CartDrawer = () => {
   const [isOpen, setIsOpen] = useState(false);
+  const isMobile = useIsMobile();
   const { 
     items, 
     isLoading, 
@@ -31,8 +33,13 @@ export const CartDrawer = () => {
       await createCheckout();
       const checkoutUrl = useCartStore.getState().checkoutUrl;
       if (checkoutUrl) {
-        window.open(checkoutUrl, '_blank');
-        setIsOpen(false);
+        // On mobile, redirect directly instead of opening new tab
+        if (isMobile) {
+          window.location.href = checkoutUrl;
+        } else {
+          window.open(checkoutUrl, '_blank');
+          setIsOpen(false);
+        }
       }
     } catch (error) {
       console.error('Checkout failed:', error);
