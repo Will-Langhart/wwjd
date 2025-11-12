@@ -164,18 +164,9 @@ const Product = () => {
               </p>
             </div>
 
-            {node.descriptionHtml && (
-              <div className="prose prose-sm max-w-none">
-                <div 
-                  className="product-description space-y-4"
-                  dangerouslySetInnerHTML={{ __html: node.descriptionHtml }}
-                />
-              </div>
-            )}
-
             {/* Variant Selectors */}
             {node.options.length > 0 && (
-              <div className="space-y-4 border-t pt-6">
+              <div className="space-y-4">
                 {node.options.map((option) => (
                   <div key={option.name}>
                     <label className="text-sm font-semibold mb-2 block">
@@ -209,13 +200,22 @@ const Product = () => {
             {/* Add to Cart Button */}
             <Button
               size="lg" 
-              className="w-full sticky bottom-4 md:static shadow-lg md:shadow-none"
+              className="w-full"
               onClick={handleAddToCart}
               disabled={!selectedVariant?.availableForSale}
             >
               <ShoppingCart className="w-5 h-5 mr-2" />
               {selectedVariant?.availableForSale ? 'Add to Cart' : 'Out of Stock'}
             </Button>
+
+            {node.descriptionHtml && (
+              <div className="prose prose-sm max-w-none border-t pt-6">
+                <div 
+                  className="product-description space-y-4"
+                  dangerouslySetInnerHTML={{ __html: node.descriptionHtml }}
+                />
+              </div>
+            )}
           </div>
         </div>
       </main>
