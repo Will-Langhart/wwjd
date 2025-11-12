@@ -144,8 +144,8 @@ const Product = () => {
                 </CarouselContent>
                 {displayImages.length > 1 && (
                   <>
-                    <CarouselPrevious className="left-4 bg-background/90 hover:bg-background border-2 shadow-lg" />
-                    <CarouselNext className="right-4 bg-background/90 hover:bg-background border-2 shadow-lg" />
+                    <CarouselPrevious className="!left-4 bg-background/90 hover:bg-background border-2 shadow-lg" />
+                    <CarouselNext className="!right-4 bg-background/90 hover:bg-background border-2 shadow-lg" />
                   </>
                 )}
               </Carousel>
