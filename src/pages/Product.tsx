@@ -169,20 +169,20 @@ const Product = () => {
             )}
 
             {/* Product Info Below Image */}
-            <div className="space-y-8 md:space-y-6">
+            <div className="space-y-10 md:space-y-6">
               <div>
-                <h1 className="text-4xl md:text-3xl font-bold mb-3">{node.title}</h1>
-                <p className="text-3xl md:text-2xl font-bold text-primary">
+                <h1 className="text-5xl md:text-3xl font-bold mb-4 md:mb-3">{node.title}</h1>
+                <p className="text-4xl md:text-2xl font-bold text-primary">
                   {currency} ${price}
                 </p>
               </div>
 
               {/* Variant Selectors */}
               {node.options.length > 0 && (
-                <div className="space-y-6 md:space-y-4">
+                <div className="space-y-8 md:space-y-4">
                   {node.options.map((option) => (
                     <div key={option.name}>
-                      <label className="text-lg md:text-base font-semibold mb-3 md:mb-2 block">
+                      <label className="text-xl md:text-base font-semibold mb-4 md:mb-3 block">
                         {option.name.charAt(0).toUpperCase() + option.name.slice(1)}
                       </label>
                       <Select
@@ -194,12 +194,12 @@ const Product = () => {
                           }))
                         }
                       >
-                        <SelectTrigger className="w-full h-14 md:h-12 text-lg md:text-base">
+                        <SelectTrigger className="w-full h-16 md:h-12 text-xl md:text-base">
                           <SelectValue placeholder={`Select ${option.name}`} />
                         </SelectTrigger>
                         <SelectContent>
                           {option.values.map((value) => (
-                            <SelectItem key={value} value={value} className="text-lg md:text-base py-3 md:py-2">
+                            <SelectItem key={value} value={value} className="text-xl md:text-base py-4 md:py-2">
                               {value}
                             </SelectItem>
                           ))}
@@ -213,11 +213,11 @@ const Product = () => {
               {/* Add to Cart Button */}
               <Button
                 size="lg" 
-                className="w-full h-16 md:h-14 text-lg md:text-base"
+                className="w-full h-20 md:h-14 text-xl md:text-base font-semibold"
                 onClick={handleAddToCart}
                 disabled={!selectedVariant?.availableForSale}
               >
-                <ShoppingCart className="w-6 h-6 md:w-5 md:h-5 mr-2" />
+                <ShoppingCart className="w-7 h-7 md:w-5 md:h-5 mr-2" />
                 {selectedVariant?.availableForSale ? 'Add to Cart' : 'Out of Stock'}
               </Button>
             </div>
