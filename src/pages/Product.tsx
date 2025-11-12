@@ -137,8 +137,9 @@ const Product = () => {
         </Button>
 
         <div className="grid md:grid-cols-2 gap-8">
-          {/* Image Carousel - Left Column */}
-          <div className="w-full">
+          {/* Left Column - Image + Product Details */}
+          <div className="space-y-6">
+            {/* Image Carousel */}
             {displayImages.length > 0 ? (
               <Carousel className="w-full relative" key={selectedVariant?.id}>
                 <CarouselContent>
@@ -166,63 +167,66 @@ const Product = () => {
                 <span className="text-muted-foreground">No image</span>
               </div>
             )}
+
+            {/* Product Info Below Image */}
+            <div className="space-y-4">
+              <div>
+                <h1 className="text-2xl md:text-3xl font-bold mb-2">{node.title}</h1>
+                <p className="text-xl md:text-2xl font-bold text-primary">
+                  {currency} ${price}
+                </p>
+              </div>
+
+              {/* Variant Selectors */}
+              {node.options.length > 0 && (
+                <div className="space-y-4">
+                  {node.options.map((option) => (
+                    <div key={option.name}>
+                      <label className="text-sm font-semibold mb-2 block">
+                        {option.name.charAt(0).toUpperCase() + option.name.slice(1)}
+                      </label>
+                      <Select
+                        value={selectedOptions[option.name.toLowerCase()] || ''}
+                        onValueChange={(value) => 
+                          setSelectedOptions(prev => ({
+                            ...prev,
+                            [option.name.toLowerCase()]: value
+                          }))
+                        }
+                      >
+                        <SelectTrigger className="w-full">
+                          <SelectValue placeholder={`Select ${option.name}`} />
+                        </SelectTrigger>
+                        <SelectContent>
+                          {option.values.map((value) => (
+                            <SelectItem key={value} value={value}>
+                              {value}
+                            </SelectItem>
+                          ))}
+                        </SelectContent>
+                      </Select>
+                    </div>
+                  ))}
+                </div>
+              )}
+              
+              {/* Add to Cart Button */}
+              <Button
+                size="lg" 
+                className="w-full"
+                onClick={handleAddToCart}
+                disabled={!selectedVariant?.availableForSale}
+              >
+                <ShoppingCart className="w-5 h-5 mr-2" />
+                {selectedVariant?.availableForSale ? 'Add to Cart' : 'Out of Stock'}
+              </Button>
+            </div>
           </div>
 
-          {/* Product Details - Right Column */}
+          {/* Right Column - Description Only */}
           <div className="space-y-6">
-            <div>
-              <h1 className="text-3xl md:text-4xl font-bold mb-2">{node.title}</h1>
-              <p className="text-2xl md:text-3xl font-bold text-primary">
-                {currency} ${price}
-              </p>
-            </div>
-
-            {/* Variant Selectors */}
-            {node.options.length > 0 && (
-              <div className="space-y-4">
-                {node.options.map((option) => (
-                  <div key={option.name}>
-                    <label className="text-sm font-semibold mb-2 block">
-                      {option.name.charAt(0).toUpperCase() + option.name.slice(1)}
-                    </label>
-                    <Select
-                      value={selectedOptions[option.name.toLowerCase()] || ''}
-                      onValueChange={(value) => 
-                        setSelectedOptions(prev => ({
-                          ...prev,
-                          [option.name.toLowerCase()]: value
-                        }))
-                      }
-                    >
-                      <SelectTrigger className="w-full">
-                        <SelectValue placeholder={`Select ${option.name}`} />
-                      </SelectTrigger>
-                      <SelectContent>
-                        {option.values.map((value) => (
-                          <SelectItem key={value} value={value}>
-                            {value}
-                          </SelectItem>
-                        ))}
-                      </SelectContent>
-                    </Select>
-                  </div>
-                ))}
-              </div>
-            )}
-            
-            {/* Add to Cart Button */}
-            <Button
-              size="lg" 
-              className="w-full"
-              onClick={handleAddToCart}
-              disabled={!selectedVariant?.availableForSale}
-            >
-              <ShoppingCart className="w-5 h-5 mr-2" />
-              {selectedVariant?.availableForSale ? 'Add to Cart' : 'Out of Stock'}
-            </Button>
-
             {node.descriptionHtml && (
-              <div className="prose prose-sm max-w-none border-t pt-6">
+              <div className="prose prose-sm max-w-none">
                 <div 
                   className="product-description space-y-4"
                   dangerouslySetInnerHTML={{ __html: node.descriptionHtml }}
