@@ -41,7 +41,7 @@ const handler = async (req: Request): Promise<Response> => {
       },
       body: JSON.stringify({
         from: "WWJD Contact <onboarding@resend.dev>",
-        to: ["theholotrout@gmail.com"],
+        to: ["wwjd.apparel@outlook.com"],
         reply_to: email,
         subject: `[WWJD Contact] From ${name}`,
         html: `
