@@ -41,9 +41,9 @@ const handler = async (req: Request): Promise<Response> => {
       },
       body: JSON.stringify({
         from: "WWJD Contact <onboarding@resend.dev>",
-        to: ["wwjd.apparel@outlook.com"],
+        to: ["theholotrout@gmail.com"],
         reply_to: email,
-        subject: `[WWJD Contact] From ${name}`,
+        subject: `[WWJD Contact] From ${name} - Forward to wwjd.apparel@outlook.com`,
         html: `
           <h2>New Contact Form Submission</h2>
           <p><strong>Name:</strong> ${name}</p>
