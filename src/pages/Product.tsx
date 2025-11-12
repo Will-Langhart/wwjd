@@ -169,10 +169,10 @@ const Product = () => {
             )}
 
             {/* Product Info Below Image */}
-            <div className="space-y-4">
+            <div className="space-y-6">
               <div>
-                <h1 className="text-2xl md:text-3xl font-bold mb-2">{node.title}</h1>
-                <p className="text-xl md:text-2xl font-bold text-primary">
+                <h1 className="text-3xl md:text-3xl font-bold mb-2">{node.title}</h1>
+                <p className="text-2xl md:text-2xl font-bold text-primary">
                   {currency} ${price}
                 </p>
               </div>
@@ -182,7 +182,7 @@ const Product = () => {
                 <div className="space-y-4">
                   {node.options.map((option) => (
                     <div key={option.name}>
-                      <label className="text-sm font-semibold mb-2 block">
+                      <label className="text-base font-semibold mb-2 block">
                         {option.name.charAt(0).toUpperCase() + option.name.slice(1)}
                       </label>
                       <Select
@@ -194,12 +194,12 @@ const Product = () => {
                           }))
                         }
                       >
-                        <SelectTrigger className="w-full">
+                        <SelectTrigger className="w-full h-12 text-base">
                           <SelectValue placeholder={`Select ${option.name}`} />
                         </SelectTrigger>
                         <SelectContent>
                           {option.values.map((value) => (
-                            <SelectItem key={value} value={value}>
+                            <SelectItem key={value} value={value} className="text-base">
                               {value}
                             </SelectItem>
                           ))}
@@ -213,7 +213,7 @@ const Product = () => {
               {/* Add to Cart Button */}
               <Button
                 size="lg" 
-                className="w-full"
+                className="w-full h-14 text-base"
                 onClick={handleAddToCart}
                 disabled={!selectedVariant?.availableForSale}
               >
