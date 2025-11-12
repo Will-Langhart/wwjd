@@ -33,26 +33,46 @@ export const Footer = () => {
                   Shop
                 </Link>
               </li>
+              <li>
+                <Link to="/auth" className="text-muted-foreground hover:text-primary transition-colors">
+                  Login
+                </Link>
+              </li>
+              <li>
+                <Link to="/profile" className="text-muted-foreground hover:text-primary transition-colors">
+                  Profile
+                </Link>
+              </li>
             </ul>
           </div>
 
-          {/* Support */}
+          {/* Policies */}
           <div className="space-y-4">
-            <h4 className="font-semibold">Support</h4>
+            <h4 className="font-semibold">Policies</h4>
             <ul className="space-y-2 text-sm">
               <li>
-                <a href="#" className="text-muted-foreground hover:text-primary transition-colors">
-                  Contact Us
+                <a href="/policies/refund-policy" target="_blank" rel="noopener noreferrer" className="text-muted-foreground hover:text-primary transition-colors">
+                  Return & Refund Policy
                 </a>
               </li>
               <li>
-                <a href="#" className="text-muted-foreground hover:text-primary transition-colors">
-                  Shipping Info
+                <a href="/policies/privacy-policy" target="_blank" rel="noopener noreferrer" className="text-muted-foreground hover:text-primary transition-colors">
+                  Privacy Policy
                 </a>
               </li>
               <li>
-                <a href="#" className="text-muted-foreground hover:text-primary transition-colors">
-                  Returns
+                <a href="/policies/terms-of-service" target="_blank" rel="noopener noreferrer" className="text-muted-foreground hover:text-primary transition-colors">
+                  Terms of Service
+                </a>
+              </li>
+              <li>
+                <a href="/policies/shipping-policy" target="_blank" rel="noopener noreferrer" className="text-muted-foreground hover:text-primary transition-colors">
+                  Shipping Policy
+                </a>
+              </li>
+              <li>
+                <a href="/pages/contact" target="_blank" rel="noopener noreferrer" className="text-muted-foreground hover:text-primary transition-colors">
+                  Contact Information
                 </a>
               </li>
             </ul>
