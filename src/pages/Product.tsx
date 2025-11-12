@@ -169,20 +169,20 @@ const Product = () => {
             )}
 
             {/* Product Info Below Image */}
-            <div className="space-y-10 md:space-y-6">
+            <div className="space-y-12 md:space-y-6">
               <div>
-                <h1 className="text-5xl md:text-3xl font-bold mb-4 md:mb-3">{node.title}</h1>
-                <p className="text-4xl md:text-2xl font-bold text-primary">
+                <h1 className="text-6xl md:text-3xl font-bold mb-5 md:mb-3 leading-tight">{node.title}</h1>
+                <p className="text-5xl md:text-2xl font-bold text-primary">
                   {currency} ${price}
                 </p>
               </div>
 
               {/* Variant Selectors */}
               {node.options.length > 0 && (
-                <div className="space-y-8 md:space-y-4">
+                <div className="space-y-10 md:space-y-4">
                   {node.options.map((option) => (
                     <div key={option.name}>
-                      <label className="text-xl md:text-base font-semibold mb-4 md:mb-3 block">
+                      <label className="text-2xl md:text-base font-semibold mb-5 md:mb-3 block">
                         {option.name.charAt(0).toUpperCase() + option.name.slice(1)}
                       </label>
                       <Select
@@ -194,12 +194,12 @@ const Product = () => {
                           }))
                         }
                       >
-                        <SelectTrigger className="w-full h-16 md:h-12 text-xl md:text-base">
+                        <SelectTrigger className="w-full h-20 md:h-12 text-2xl md:text-base">
                           <SelectValue placeholder={`Select ${option.name}`} />
                         </SelectTrigger>
                         <SelectContent>
                           {option.values.map((value) => (
-                            <SelectItem key={value} value={value} className="text-xl md:text-base py-4 md:py-2">
+                            <SelectItem key={value} value={value} className="text-2xl md:text-base py-5 md:py-2">
                               {value}
                             </SelectItem>
                           ))}
@@ -213,11 +213,11 @@ const Product = () => {
               {/* Add to Cart Button */}
               <Button
                 size="lg" 
-                className="w-full h-20 md:h-14 text-xl md:text-base font-semibold"
+                className="w-full h-24 md:h-14 text-2xl md:text-base font-semibold"
                 onClick={handleAddToCart}
                 disabled={!selectedVariant?.availableForSale}
               >
-                <ShoppingCart className="w-7 h-7 md:w-5 md:h-5 mr-2" />
+                <ShoppingCart className="w-8 h-8 md:w-5 md:h-5 mr-3 md:mr-2" />
                 {selectedVariant?.availableForSale ? 'Add to Cart' : 'Out of Stock'}
               </Button>
             </div>
@@ -226,9 +226,9 @@ const Product = () => {
           {/* Right Column - Description Only */}
           <div className="space-y-6">
             {node.descriptionHtml && (
-              <div className="prose prose-lg md:prose-sm max-w-none">
+              <div className="prose prose-xl md:prose-sm max-w-none">
                 <div 
-                  className="product-description space-y-4"
+                  className="product-description space-y-4 text-xl md:text-base"
                   dangerouslySetInnerHTML={{ __html: node.descriptionHtml }}
                 />
               </div>
