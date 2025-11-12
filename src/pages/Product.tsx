@@ -109,10 +109,8 @@ const Product = () => {
   const price = selectedVariant ? parseFloat(selectedVariant.price.amount).toFixed(2) : '0.00';
   const currency = selectedVariant?.price.currencyCode || 'USD';
   
-  // Get images to display - show variant image if available, otherwise show all product images
-  const displayImages = selectedVariant?.image 
-    ? [{ node: selectedVariant.image }] 
-    : node.images.edges;
+  // Always display all product images
+  const displayImages = node.images.edges;
 
   return (
     <main className="flex-1 container py-8">
