@@ -5,7 +5,6 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { Header } from "./components/Header";
 import { Footer } from "./components/Footer";
-import { ShopifyInboxChat } from "./components/ShopifyInboxChat";
 import Index from "./pages/Index";
 import Shop from "./pages/Shop";
 import Product from "./pages/Product";
@@ -34,7 +33,6 @@ const App = () => (
           </Routes>
           <Footer />
         </div>
-        <ShopifyInboxChat />
       </BrowserRouter>
     </TooltipProvider>
   </QueryClientProvider>
