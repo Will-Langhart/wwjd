@@ -1,7 +1,7 @@
 import { ShopifyProduct } from "@/lib/shopify";
 import { Card, CardContent, CardFooter } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { ShoppingCart } from "lucide-react";
+import { ShoppingCart, Heart } from "lucide-react";
 import { useCartStore } from "@/stores/cartStore";
 import { toast } from "sonner";
 import { Link } from "react-router-dom";
@@ -12,6 +12,7 @@ import {
   CarouselNext,
   CarouselPrevious,
 } from "@/components/ui/carousel";
+import { useWishlist } from "@/hooks/useWishlist";
 
 interface ProductCardProps {
   product: ShopifyProduct;
@@ -19,6 +20,7 @@ interface ProductCardProps {
 
 export const ProductCard = ({ product }: ProductCardProps) => {
   const addItem = useCartStore(state => state.addItem);
+  const { isInWishlist, toggleWishlist } = useWishlist();
   const { node } = product;
 
   const handleAddToCart = () => {
@@ -41,6 +43,20 @@ export const ProductCard = ({ product }: ProductCardProps) => {
     });
   };
 
+  const handleWishlistToggle = (e: React.MouseEvent) => {
+    e.preventDefault();
+    e.stopPropagation();
+    const firstImage = node.images.edges[0]?.node.url;
+    toggleWishlist({
+      id: node.id,
+      handle: node.handle,
+      title: node.title,
+      imageUrl: firstImage,
+      priceAmount: node.priceRange.minVariantPrice.amount,
+      priceCurrency: node.priceRange.minVariantPrice.currencyCode,
+    });
+  };
+
   const images = node.images.edges;
   const price = parseFloat(node.priceRange.minVariantPrice.amount).toFixed(2);
   const currency = node.priceRange.minVariantPrice.currencyCode;
@@ -48,7 +64,7 @@ export const ProductCard = ({ product }: ProductCardProps) => {
   return (
     <Card className="group overflow-hidden transition-all duration-300 hover:shadow-[var(--shadow-elegant)]">
       <Link to={`/product/${node.handle}`}>
-        <div className="aspect-square overflow-hidden bg-secondary/10">
+        <div className="aspect-square overflow-hidden bg-secondary/10 relative">
           {images.length > 0 ? (
             images.length === 1 ? (
               <img
@@ -78,6 +94,17 @@ export const ProductCard = ({ product }: ProductCardProps) => {
               <span className="text-muted-foreground">No image</span>
             </div>
           )}
+          {/* Wishlist Button Overlay */}
+          <Button
+            size="icon"
+            variant="secondary"
+            className="absolute top-3 right-3 opacity-0 group-hover:opacity-100 transition-opacity shadow-lg"
+            onClick={handleWishlistToggle}
+          >
+            <Heart 
+              className={`w-4 h-4 ${isInWishlist(node.id) ? 'fill-primary text-primary' : ''}`} 
+            />
+          </Button>
         </div>
       </Link>
       

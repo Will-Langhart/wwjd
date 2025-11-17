@@ -3,26 +3,23 @@ import { Facebook, Instagram, Twitter, Mail } from "lucide-react";
 
 export const Footer = () => {
   return (
-    <footer className="bg-gradient-to-b from-background to-secondary/20 border-t mt-auto">
-      <div className="container py-12">
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
+    <footer className="bg-secondary/10 border-t mt-auto">
+      <div className="container py-8">
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-6 md:gap-8">
           {/* Brand Section */}
-          <div className="space-y-4">
-            <h3 className="text-2xl font-bold bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">
-              WWJD
+          <div className="space-y-3 col-span-2 md:col-span-1">
+            <h3 className="text-lg font-bold">
+              WWJD: The Narrow Path
             </h3>
-            <p className="text-sm text-muted-foreground">
-              The Narrow Path
-            </p>
-            <p className="text-sm text-muted-foreground italic">
+            <p className="text-xs text-muted-foreground italic">
               "Enter through the narrow gate" - Matthew 7:13
             </p>
           </div>
 
           {/* Quick Links */}
-          <div className="space-y-4">
-            <h4 className="font-semibold">Quick Links</h4>
-            <ul className="space-y-2 text-sm">
+          <div className="space-y-3">
+            <h4 className="font-semibold text-sm">Quick Links</h4>
+            <ul className="space-y-1.5 text-xs">
               <li>
                 <Link to="/" className="text-muted-foreground hover:text-primary transition-colors">
                   Home
@@ -47,9 +44,9 @@ export const Footer = () => {
           </div>
 
           {/* Policies */}
-          <div className="space-y-4">
-            <h4 className="font-semibold">Policies</h4>
-            <ul className="space-y-2 text-sm">
+          <div className="space-y-3">
+            <h4 className="font-semibold text-sm">Help & Info</h4>
+            <ul className="space-y-1.5 text-xs">
               <li>
                 <a href="/policies/refund-policy" target="_blank" rel="noopener noreferrer" className="text-muted-foreground hover:text-primary transition-colors">
                   Return & Refund Policy
@@ -67,21 +64,21 @@ export const Footer = () => {
               </li>
               <li>
                 <a href="/policies/shipping-policy" target="_blank" rel="noopener noreferrer" className="text-muted-foreground hover:text-primary transition-colors">
-                  Shipping Policy
+                  Shipping
                 </a>
               </li>
               <li>
                 <a href="/pages/contact" target="_blank" rel="noopener noreferrer" className="text-muted-foreground hover:text-primary transition-colors">
-                  Contact Information
+                  Contact
                 </a>
               </li>
             </ul>
           </div>
 
           {/* Connect */}
-          <div className="space-y-4">
-            <h4 className="font-semibold">Connect With Us</h4>
-            <div className="flex gap-4">
+          <div className="space-y-3">
+            <h4 className="font-semibold text-sm">Follow Us</h4>
+            <div className="flex gap-3">
               <a 
                 href="#" 
                 className="text-muted-foreground hover:text-primary transition-colors"
@@ -114,8 +111,11 @@ export const Footer = () => {
           </div>
         </div>
 
-        <div className="mt-8 pt-8 border-t text-center text-sm text-muted-foreground">
-          <p>&copy; {new Date().getFullYear()} WWJD: The Narrow Path. All rights reserved.</p>
+        {/* Copyright */}
+        <div className="mt-6 pt-6 border-t text-center">
+          <p className="text-xs text-muted-foreground">
+            © {new Date().getFullYear()} WWJD: The Narrow Path. All rights reserved.
+          </p>
         </div>
       </div>
     </footer>
