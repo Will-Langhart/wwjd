@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { getProductByHandle, ShopifyProduct } from "@/lib/shopify";
 import { Button } from "@/components/ui/button";
-import { ShoppingCart, ArrowLeft, Loader2 } from "lucide-react";
+import { ShoppingCart, ArrowLeft, Loader2, Heart, ZoomIn } from "lucide-react";
 import { useCartStore } from "@/stores/cartStore";
 import { toast } from "sonner";
 import {
@@ -19,6 +19,11 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import {
+  Dialog,
+  DialogContent,
+} from "@/components/ui/dialog";
+import { useWishlist } from "@/hooks/useWishlist";
 
 const Product = () => {
   const { handle } = useParams<{ handle: string }>();
@@ -26,7 +31,9 @@ const Product = () => {
   const [product, setProduct] = useState<ShopifyProduct | null>(null);
   const [loading, setLoading] = useState(true);
   const [selectedOptions, setSelectedOptions] = useState<Record<string, string>>({});
+  const [zoomImageUrl, setZoomImageUrl] = useState<string | null>(null);
   const addItem = useCartStore(state => state.addItem);
+  const { isInWishlist, toggleWishlist } = useWishlist();
 
   useEffect(() => {
     const fetchProduct = async () => {
@@ -80,6 +87,19 @@ const Product = () => {
     toast.success("Added to cart", {
       description: `${product.node.title} has been added to your cart`,
       position: "top-center",
+    });
+  };
+
+  const handleWishlistToggle = () => {
+    if (!product) return;
+    const firstImage = node.images.edges[0]?.node.url;
+    toggleWishlist({
+      id: node.id,
+      handle: node.handle,
+      title: node.title,
+      imageUrl: firstImage,
+      priceAmount: node.priceRange.minVariantPrice.amount,
+      priceCurrency: node.priceRange.minVariantPrice.currencyCode,
     });
   };
 
@@ -145,12 +165,18 @@ const Product = () => {
                 <CarouselContent>
                   {displayImages.map((image, index) => (
                     <CarouselItem key={index}>
-                      <div className="aspect-square overflow-hidden rounded-lg bg-secondary/10">
+                      <div 
+                        className="aspect-square overflow-hidden rounded-lg bg-secondary/10 relative group cursor-pointer"
+                        onClick={() => setZoomImageUrl(image.node.url)}
+                      >
                         <img
                           src={image.node.url}
                           alt={image.node.altText || `${node.title} - Image ${index + 1}`}
                           className="w-full h-full object-cover"
                         />
+                        <div className="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-colors flex items-center justify-center">
+                          <ZoomIn className="w-8 h-8 text-white opacity-0 group-hover:opacity-100 transition-opacity" />
+                        </div>
                       </div>
                     </CarouselItem>
                   ))}
@@ -210,16 +236,28 @@ const Product = () => {
                 </div>
               )}
               
-              {/* Add to Cart Button */}
-              <Button
-                size="lg" 
-                className="w-full h-24 md:h-14 text-2xl md:text-base font-semibold"
-                onClick={handleAddToCart}
-                disabled={!selectedVariant?.availableForSale}
-              >
-                <ShoppingCart className="w-8 h-8 md:w-5 md:h-5 mr-3 md:mr-2" />
-                {selectedVariant?.availableForSale ? 'Add to Cart' : 'Out of Stock'}
-              </Button>
+              {/* Add to Cart & Wishlist Buttons */}
+              <div className="flex gap-3">
+                <Button
+                  size="lg" 
+                  onClick={handleAddToCart}
+                  disabled={!selectedVariant?.availableForSale}
+                  className="flex-1 h-24 md:h-14 text-2xl md:text-base font-semibold"
+                >
+                  <ShoppingCart className="w-8 h-8 md:w-5 md:h-5 mr-3 md:mr-2" />
+                  {selectedVariant?.availableForSale ? 'Add to Cart' : 'Out of Stock'}
+                </Button>
+                <Button
+                  size="lg"
+                  variant="outline"
+                  onClick={handleWishlistToggle}
+                  className="h-24 md:h-14 w-24 md:w-14 flex-shrink-0"
+                >
+                  <Heart 
+                    className={`w-8 h-8 md:w-5 md:h-5 ${isInWishlist(node.id) ? 'fill-primary text-primary' : ''}`} 
+                  />
+                </Button>
+              </div>
             </div>
           </div>
 
@@ -235,7 +273,18 @@ const Product = () => {
             )}
           </div>
         </div>
-      </main>
+
+        {/* Image Zoom Modal */}
+        <Dialog open={!!zoomImageUrl} onOpenChange={() => setZoomImageUrl(null)}>
+          <DialogContent className="max-w-4xl p-2">
+            <img
+              src={zoomImageUrl || ''}
+              alt={node.title}
+              className="w-full h-auto"
+            />
+          </DialogContent>
+        </Dialog>
+    </main>
   );
 };
 
