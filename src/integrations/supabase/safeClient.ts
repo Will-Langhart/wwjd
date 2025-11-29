@@ -10,11 +10,15 @@ export const getSupabaseClient = async (): Promise<SupabaseClient<Database> | nu
     return cachedClient;
   }
 
-  const SUPABASE_URL = import.meta.env.VITE_SUPABASE_URL as string | undefined;
-  const SUPABASE_PUBLISHABLE_KEY = import.meta.env.VITE_SUPABASE_PUBLISHABLE_KEY as string | undefined;
+  const envUrl = import.meta.env.VITE_SUPABASE_URL as string | undefined;
+  const envKey = import.meta.env.VITE_SUPABASE_PUBLISHABLE_KEY as string | undefined;
+
+  // Fallback to known project configuration if env vars are not injected correctly
+  const SUPABASE_URL = envUrl || "https://iipcadleylfbtithaauh.supabase.co";
+  const SUPABASE_PUBLISHABLE_KEY = envKey || "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImlpcGNhZGxleWxmYnRpdGhhYXVoIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjEwNzExNjYsImV4cCI6MjA3NjY0NzE2Nn0.2sPuZjK94O7e2TyUGRRzmE2VC9pg-EbmbOTh7opwglA";
 
   if (!SUPABASE_URL || !SUPABASE_PUBLISHABLE_KEY) {
-    console.error("Supabase environment variables are missing. Backend features are disabled.");
+    console.error("Supabase configuration is missing. Backend features are disabled.");
     cachedClient = null;
     return cachedClient;
   }
