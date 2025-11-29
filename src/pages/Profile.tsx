@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { supabase } from "@/integrations/supabase/client";
+import { getSupabaseClient } from "@/integrations/supabase/safeClient";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
@@ -23,7 +23,8 @@ const Profile = () => {
 
     const initProfile = async () => {
       try {
-        if (!isMounted) return;
+        const supabase = await getSupabaseClient();
+        if (!supabase || !isMounted) return;
 
         // Check if user is logged in
         const { data: { session } } = await supabase.auth.getSession();
@@ -62,6 +63,12 @@ const Profile = () => {
 
   const handleLogout = async () => {
     try {
+      const supabase = await getSupabaseClient();
+      if (!supabase) {
+        toast.error("Logout is unavailable");
+        return;
+      }
+
       await supabase.auth.signOut();
       toast.success("Logged out successfully");
       navigate("/");

@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { supabase } from "@/integrations/supabase/client";
+import { getSupabaseClient } from "@/integrations/supabase/safeClient";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { toast } from "sonner";
 import { format } from "date-fns";
@@ -27,6 +27,9 @@ export const OrderHistory = ({ userId }: OrderHistoryProps) => {
 
   const fetchOrders = async () => {
     try {
+      const supabase = await getSupabaseClient();
+      if (!supabase) return;
+
       const { data, error } = await supabase
         .from("orders")
         .select("*")

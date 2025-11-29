@@ -1,7 +1,7 @@
 import { CartDrawer } from "./CartDrawer";
 import { Link } from "react-router-dom";
 import { useState, useEffect } from "react";
-import { supabase } from "@/integrations/supabase/client";
+import { getSupabaseClient } from "@/integrations/supabase/safeClient";
 import { User } from "lucide-react";
 import wwjdLogo from "@/assets/wwjd_logo.png";
 
@@ -14,7 +14,8 @@ export const Header = () => {
 
     const initAuth = async () => {
       try {
-        if (!isMounted) return;
+        const supabase = await getSupabaseClient();
+        if (!supabase || !isMounted) return;
 
         const { data: { session } } = await supabase.auth.getSession();
         if (!isMounted) return;

@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { supabase } from "@/integrations/supabase/client";
+import { getSupabaseClient } from "@/integrations/supabase/safeClient";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -25,7 +25,8 @@ const Auth = () => {
 
     const initAuth = async () => {
       try {
-        if (!isMounted) return;
+        const supabase = await getSupabaseClient();
+        if (!supabase || !isMounted) return;
 
         // Check if user is already logged in
         const { data: { session } } = await supabase.auth.getSession();
@@ -60,6 +61,12 @@ const Auth = () => {
     setIsLoading(true);
 
     try {
+      const supabase = await getSupabaseClient();
+      if (!supabase) {
+        toast.error("Login service is unavailable");
+        return;
+      }
+
       const { error } = await supabase.auth.signInWithPassword({
         email,
         password,
@@ -79,6 +86,12 @@ const Auth = () => {
     setIsLoading(true);
 
     try {
+      const supabase = await getSupabaseClient();
+      if (!supabase) {
+        toast.error("Signup service is unavailable");
+        return;
+      }
+
       const { error } = await supabase.auth.signUp({
         email,
         password,
@@ -118,6 +131,12 @@ const Auth = () => {
     setIsLoading(true);
 
     try {
+      const supabase = await getSupabaseClient();
+      if (!supabase) {
+        toast.error("Password reset is unavailable");
+        return;
+      }
+
       const { error } = await supabase.auth.resetPasswordForEmail(resetEmail, {
         redirectTo: `${window.location.origin}/reset-password`,
       });
