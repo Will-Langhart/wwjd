@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { supabase } from "@/integrations/supabase/client";
+import { getSupabaseClient } from "@/integrations/supabase/safeClient";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
@@ -18,34 +18,62 @@ const Profile = () => {
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    // Check if user is logged in
-    supabase.auth.getSession().then(({ data: { session } }) => {
-      if (!session) {
-        navigate("/auth");
-      } else {
-        setUser(session.user);
+    let isMounted = true;
+    let subscription: { unsubscribe: () => void } | null = null;
+
+    const initProfile = async () => {
+      try {
+        const supabase = await getSupabaseClient();
+        if (!supabase || !isMounted) return;
+
+        // Check if user is logged in
+        const { data: { session } } = await supabase.auth.getSession();
+        if (!isMounted) return;
+
+        if (!session) {
+          navigate("/auth");
+        } else {
+          setUser(session.user);
+          setIsLoading(false);
+        }
+
+        // Listen for auth changes
+        const { data } = supabase.auth.onAuthStateChange((event, session) => {
+          if (!isMounted) return;
+          if (event === "SIGNED_OUT") {
+            navigate("/auth");
+          } else if (session) {
+            setUser(session.user);
+          }
+        });
+        subscription = data.subscription;
+      } catch (error) {
+        console.error("Failed to initialize profile page", error);
         setIsLoading(false);
       }
-    });
+    };
 
-    // Listen for auth changes
-    const { data: { subscription } } = supabase.auth.onAuthStateChange((event, session) => {
-      if (event === "SIGNED_OUT") {
-        navigate("/auth");
-      } else if (session) {
-        setUser(session.user);
-      }
-    });
+    initProfile();
 
-    return () => subscription.unsubscribe();
+    return () => {
+      isMounted = false;
+      subscription?.unsubscribe();
+    };
   }, [navigate]);
 
   const handleLogout = async () => {
     try {
+      const supabase = await getSupabaseClient();
+      if (!supabase) {
+        toast.error("Logout is unavailable");
+        return;
+      }
+
       await supabase.auth.signOut();
       toast.success("Logged out successfully");
       navigate("/");
     } catch (error: any) {
+      console.error("Failed to log out", error);
       toast.error("Failed to log out");
     }
   };

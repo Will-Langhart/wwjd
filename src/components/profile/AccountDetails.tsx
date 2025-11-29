@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { supabase } from "@/integrations/supabase/client";
+import { getSupabaseClient } from "@/integrations/supabase/safeClient";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -25,6 +25,9 @@ export const AccountDetails = ({ userId }: AccountDetailsProps) => {
 
   const fetchProfile = async () => {
     try {
+      const supabase = await getSupabaseClient();
+      if (!supabase) return;
+
       const { data, error } = await supabase
         .from("profiles")
         .select("*")
@@ -40,6 +43,7 @@ export const AccountDetails = ({ userId }: AccountDetailsProps) => {
         });
       }
     } catch (error: any) {
+      console.error("Failed to load profile", error);
       toast.error("Failed to load profile");
     }
   };
@@ -49,6 +53,12 @@ export const AccountDetails = ({ userId }: AccountDetailsProps) => {
     setIsLoading(true);
 
     try {
+      const supabase = await getSupabaseClient();
+      if (!supabase) {
+        toast.error("Profile service is unavailable");
+        return;
+      }
+
       const { error } = await supabase
         .from("profiles")
         .update(profile)
@@ -57,6 +67,7 @@ export const AccountDetails = ({ userId }: AccountDetailsProps) => {
       if (error) throw error;
       toast.success("Profile updated successfully");
     } catch (error: any) {
+      console.error("Failed to update profile", error);
       toast.error("Failed to update profile");
     } finally {
       setIsLoading(false);

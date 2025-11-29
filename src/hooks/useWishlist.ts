@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { supabase } from "@/integrations/supabase/client";
+import { getSupabaseClient } from "@/integrations/supabase/safeClient";
 import { toast } from "sonner";
 
 export const useWishlist = () => {
@@ -7,30 +7,48 @@ export const useWishlist = () => {
   const [wishlistItems, setWishlistItems] = useState<string[]>([]);
 
   useEffect(() => {
-    // Get current user
-    supabase.auth.getSession().then(({ data: { session } }) => {
-      if (session?.user) {
+    let isMounted = true;
+
+    const init = async () => {
+      const supabase = await getSupabaseClient();
+      if (!supabase || !isMounted) return;
+
+      // Get current user
+      const { data: { session } } = await supabase.auth.getSession();
+      if (session?.user && isMounted) {
         setUserId(session.user.id);
-        fetchWishlist(session.user.id);
+        fetchWishlist(session.user.id, supabase);
       }
+
+      // Listen for auth changes
+      const { data: { subscription } } = supabase.auth.onAuthStateChange((event, session) => {
+        if (!isMounted) return;
+        if (session?.user) {
+          setUserId(session.user.id);
+          fetchWishlist(session.user.id, supabase);
+        } else {
+          setUserId(null);
+          setWishlistItems([]);
+        }
+      });
+
+      return () => subscription.unsubscribe();
+    };
+
+    init().catch((error) => {
+      console.error("Failed to initialize wishlist hook", error);
     });
 
-    // Listen for auth changes
-    const { data: { subscription } } = supabase.auth.onAuthStateChange((event, session) => {
-      if (session?.user) {
-        setUserId(session.user.id);
-        fetchWishlist(session.user.id);
-      } else {
-        setUserId(null);
-        setWishlistItems([]);
-      }
-    });
-
-    return () => subscription.unsubscribe();
+    return () => {
+      isMounted = false;
+    };
   }, []);
 
-  const fetchWishlist = async (uid: string) => {
+  const fetchWishlist = async (uid: string, client?: any) => {
     try {
+      const supabase = client || (await getSupabaseClient());
+      if (!supabase) return;
+
       const { data, error } = await supabase
         .from("wishlist")
         .select("product_id")
@@ -61,6 +79,12 @@ export const useWishlist = () => {
     }
 
     try {
+      const supabase = await getSupabaseClient();
+      if (!supabase) {
+        toast.error("Wishlist service is unavailable");
+        return false;
+      }
+
       const { error } = await supabase.from("wishlist").insert({
         user_id: userId,
         product_id: product.id,
@@ -107,6 +131,12 @@ export const useWishlist = () => {
     if (!userId) return false;
 
     try {
+      const supabase = await getSupabaseClient();
+      if (!supabase) {
+        toast.error("Wishlist service is unavailable");
+        return false;
+      }
+
       const { error } = await supabase
         .from("wishlist")
         .delete()
@@ -118,6 +148,7 @@ export const useWishlist = () => {
       toast.success("Removed from wishlist");
       return true;
     } catch (error: any) {
+      console.error("Failed to remove from wishlist", error);
       toast.error("Failed to remove from wishlist");
       return false;
     }

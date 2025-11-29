@@ -1,7 +1,7 @@
 import { CartDrawer } from "./CartDrawer";
 import { Link } from "react-router-dom";
 import { useState, useEffect } from "react";
-import { supabase } from "@/integrations/supabase/client";
+import { getSupabaseClient } from "@/integrations/supabase/safeClient";
 import { User } from "lucide-react";
 import wwjdLogo from "@/assets/wwjd_logo.png";
 
@@ -9,17 +9,34 @@ export const Header = () => {
   const [user, setUser] = useState<any>(null);
 
   useEffect(() => {
-    // Get initial session
-    supabase.auth.getSession().then(({ data: { session } }) => {
-      setUser(session?.user ?? null);
-    });
+    let isMounted = true;
+    let subscription: { unsubscribe: () => void } | null = null;
 
-    // Listen for auth changes
-    const { data: { subscription } } = supabase.auth.onAuthStateChange((event, session) => {
-      setUser(session?.user ?? null);
-    });
+    const initAuth = async () => {
+      try {
+        const supabase = await getSupabaseClient();
+        if (!supabase || !isMounted) return;
 
-    return () => subscription.unsubscribe();
+        const { data: { session } } = await supabase.auth.getSession();
+        if (!isMounted) return;
+        setUser(session?.user ?? null);
+
+        const { data } = supabase.auth.onAuthStateChange((_event, session) => {
+          if (!isMounted) return;
+          setUser(session?.user ?? null);
+        });
+        subscription = data.subscription;
+      } catch (error) {
+        console.error("Failed to initialize auth header:", error);
+      }
+    };
+
+    initAuth();
+
+    return () => {
+      isMounted = false;
+      subscription?.unsubscribe();
+    };
   }, []);
 
   return (

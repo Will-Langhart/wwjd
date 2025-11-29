@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { supabase } from "@/integrations/supabase/client";
+import { getSupabaseClient } from "@/integrations/supabase/safeClient";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -20,21 +20,40 @@ const Auth = () => {
   const [resetDialogOpen, setResetDialogOpen] = useState(false);
 
   useEffect(() => {
-    // Check if user is already logged in
-    supabase.auth.getSession().then(({ data: { session } }) => {
-      if (session) {
-        navigate("/profile");
-      }
-    });
+    let isMounted = true;
+    let subscription: { unsubscribe: () => void } | null = null;
 
-    // Listen for auth changes
-    const { data: { subscription } } = supabase.auth.onAuthStateChange((event, session) => {
-      if (session && event === "SIGNED_IN") {
-        navigate("/profile");
-      }
-    });
+    const initAuth = async () => {
+      try {
+        const supabase = await getSupabaseClient();
+        if (!supabase || !isMounted) return;
 
-    return () => subscription.unsubscribe();
+        // Check if user is already logged in
+        const { data: { session } } = await supabase.auth.getSession();
+        if (!isMounted) return;
+        if (session) {
+          navigate("/profile");
+        }
+
+        // Listen for auth changes
+        const { data } = supabase.auth.onAuthStateChange((event, session) => {
+          if (!isMounted) return;
+          if (session && event === "SIGNED_IN") {
+            navigate("/profile");
+          }
+        });
+        subscription = data.subscription;
+      } catch (error) {
+        console.error("Failed to initialize auth page", error);
+      }
+    };
+
+    initAuth();
+
+    return () => {
+      isMounted = false;
+      subscription?.unsubscribe();
+    };
   }, [navigate]);
 
   const handleLogin = async (e: React.FormEvent) => {
@@ -42,6 +61,12 @@ const Auth = () => {
     setIsLoading(true);
 
     try {
+      const supabase = await getSupabaseClient();
+      if (!supabase) {
+        toast.error("Login service is unavailable");
+        return;
+      }
+
       const { error } = await supabase.auth.signInWithPassword({
         email,
         password,
@@ -61,6 +86,12 @@ const Auth = () => {
     setIsLoading(true);
 
     try {
+      const supabase = await getSupabaseClient();
+      if (!supabase) {
+        toast.error("Signup service is unavailable");
+        return;
+      }
+
       const { error } = await supabase.auth.signUp({
         email,
         password,
@@ -76,15 +107,15 @@ const Auth = () => {
       
       // Send welcome email
       try {
-        await supabase.functions.invoke('send-notification', {
+        await supabase.functions.invoke("send-notification", {
           body: {
-            type: 'welcome',
+            type: "welcome",
             to: email,
-            data: { name: fullName }
-          }
+            data: { name: fullName },
+          },
         });
       } catch (emailError) {
-        console.error('Failed to send welcome email:', emailError);
+        console.error("Failed to send welcome email:", emailError);
       }
       
       toast.success("Account created! Please check your email to confirm.");
@@ -100,6 +131,12 @@ const Auth = () => {
     setIsLoading(true);
 
     try {
+      const supabase = await getSupabaseClient();
+      if (!supabase) {
+        toast.error("Password reset is unavailable");
+        return;
+      }
+
       const { error } = await supabase.auth.resetPasswordForEmail(resetEmail, {
         redirectTo: `${window.location.origin}/reset-password`,
       });
