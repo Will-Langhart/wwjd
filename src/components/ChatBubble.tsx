@@ -4,7 +4,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { useToast } from "@/hooks/use-toast";
-import { supabase } from "@/integrations/supabase/client";
+import { getSupabaseClient } from "@/integrations/supabase/safeClient";
 
 export const ChatBubble = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -19,8 +19,18 @@ export const ChatBubble = () => {
     setIsLoading(true);
 
     try {
-      const { error } = await supabase.functions.invoke('send-contact-email', {
-        body: { name, email, message }
+      const supabase = await getSupabaseClient();
+      if (!supabase) {
+        toast({
+          title: "Service unavailable",
+          description: "Contact form is temporarily offline.",
+          variant: "destructive",
+        });
+        return;
+      }
+
+      const { error } = await supabase.functions.invoke("send-contact-email", {
+        body: { name, email, message },
       });
 
       if (error) throw error;
