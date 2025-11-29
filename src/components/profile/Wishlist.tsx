@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import { getSupabaseClient } from "@/integrations/supabase/safeClient";
+import { supabase } from "@/integrations/supabase/client";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { toast } from "sonner";
@@ -31,9 +31,6 @@ export const Wishlist = ({ userId }: WishlistProps) => {
 
   const fetchWishlist = async () => {
     try {
-      const supabase = await getSupabaseClient();
-      if (!supabase) return;
-
       const { data, error } = await supabase
         .from("wishlist")
         .select("*")
@@ -50,12 +47,6 @@ export const Wishlist = ({ userId }: WishlistProps) => {
 
   const handleRemove = async (itemId: string) => {
     try {
-      const supabase = await getSupabaseClient();
-      if (!supabase) {
-        toast.error("Wishlist service is unavailable");
-        return;
-      }
-
       const { error } = await supabase
         .from("wishlist")
         .delete()
