@@ -49,7 +49,7 @@ const Index = () => {
               </p>
               <div className="pt-4 pb-8">
                 <p className="text-base md:text-lg text-white/90 italic drop-shadow-md font-serif">
-                  "Enter through the narrow gate" — Matthew 7:13
+                  "Enter through the narrow gate. For wide is the gate and broad is the road that leads to destruction, and many enter through it."
                 </p>
               </div>
               <div className="flex flex-col sm:flex-row gap-4 justify-center pt-2">
