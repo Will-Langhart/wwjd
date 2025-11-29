@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { getSupabaseClient } from "@/integrations/supabase/safeClient";
+import { supabase } from "@/integrations/supabase/client";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -25,9 +25,6 @@ export const AccountDetails = ({ userId }: AccountDetailsProps) => {
 
   const fetchProfile = async () => {
     try {
-      const supabase = await getSupabaseClient();
-      if (!supabase) return;
-
       const { data, error } = await supabase
         .from("profiles")
         .select("*")
@@ -53,12 +50,6 @@ export const AccountDetails = ({ userId }: AccountDetailsProps) => {
     setIsLoading(true);
 
     try {
-      const supabase = await getSupabaseClient();
-      if (!supabase) {
-        toast.error("Profile service is unavailable");
-        return;
-      }
-
       const { error } = await supabase
         .from("profiles")
         .update(profile)

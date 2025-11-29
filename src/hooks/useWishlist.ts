@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { getSupabaseClient } from "@/integrations/supabase/safeClient";
+import { supabase } from "@/integrations/supabase/client";
 import { toast } from "sonner";
 
 export const useWishlist = () => {
@@ -10,14 +10,13 @@ export const useWishlist = () => {
     let isMounted = true;
 
     const init = async () => {
-      const supabase = await getSupabaseClient();
-      if (!supabase || !isMounted) return;
+      if (!isMounted) return;
 
       // Get current user
       const { data: { session } } = await supabase.auth.getSession();
       if (session?.user && isMounted) {
         setUserId(session.user.id);
-        fetchWishlist(session.user.id, supabase);
+        fetchWishlist(session.user.id);
       }
 
       // Listen for auth changes
@@ -25,7 +24,7 @@ export const useWishlist = () => {
         if (!isMounted) return;
         if (session?.user) {
           setUserId(session.user.id);
-          fetchWishlist(session.user.id, supabase);
+          fetchWishlist(session.user.id);
         } else {
           setUserId(null);
           setWishlistItems([]);
@@ -44,11 +43,8 @@ export const useWishlist = () => {
     };
   }, []);
 
-  const fetchWishlist = async (uid: string, client?: any) => {
+  const fetchWishlist = async (uid: string) => {
     try {
-      const supabase = client || (await getSupabaseClient());
-      if (!supabase) return;
-
       const { data, error } = await supabase
         .from("wishlist")
         .select("product_id")
@@ -79,12 +75,6 @@ export const useWishlist = () => {
     }
 
     try {
-      const supabase = await getSupabaseClient();
-      if (!supabase) {
-        toast.error("Wishlist service is unavailable");
-        return false;
-      }
-
       const { error } = await supabase.from("wishlist").insert({
         user_id: userId,
         product_id: product.id,
@@ -131,12 +121,6 @@ export const useWishlist = () => {
     if (!userId) return false;
 
     try {
-      const supabase = await getSupabaseClient();
-      if (!supabase) {
-        toast.error("Wishlist service is unavailable");
-        return false;
-      }
-
       const { error } = await supabase
         .from("wishlist")
         .delete()
