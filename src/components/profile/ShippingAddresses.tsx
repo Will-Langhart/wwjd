@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { supabase } from "@/integrations/supabase/client";
+import { getSupabaseClient } from "@/integrations/supabase/safeClient";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -46,6 +46,9 @@ export const ShippingAddresses = ({ userId }: ShippingAddressesProps) => {
 
   const fetchAddresses = async () => {
     try {
+      const supabase = await getSupabaseClient();
+      if (!supabase) return;
+
       const { data, error } = await supabase
         .from("shipping_addresses")
         .select("*")
@@ -65,6 +68,12 @@ export const ShippingAddresses = ({ userId }: ShippingAddressesProps) => {
     setIsLoading(true);
 
     try {
+      const supabase = await getSupabaseClient();
+      if (!supabase) {
+        toast.error("Address service is unavailable");
+        return;
+      }
+
       const { error } = await supabase.from("shipping_addresses").insert({
         ...newAddress,
         user_id: userId,
@@ -94,6 +103,12 @@ export const ShippingAddresses = ({ userId }: ShippingAddressesProps) => {
 
   const handleDeleteAddress = async (addressId: string) => {
     try {
+      const supabase = await getSupabaseClient();
+      if (!supabase) {
+        toast.error("Address service is unavailable");
+        return;
+      }
+
       const { error } = await supabase
         .from("shipping_addresses")
         .delete()
