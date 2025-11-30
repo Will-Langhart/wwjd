@@ -38,7 +38,7 @@ const Index = () => {
             <div className="absolute inset-0 bg-gradient-to-b from-black/50 via-black/40 to-background" />
           </div>
           
-          <div className="relative container h-full flex flex-col items-center justify-center text-center px-4 pt-20 sm:pt-0">
+          <div className="relative container h-full flex flex-col items-center justify-center text-center px-4 pt-8 sm:pt-0">
             <div className="max-w-4xl mx-auto space-y-4 sm:space-y-6 animate-fade-in">
               <h1 className="text-4xl sm:text-6xl md:text-8xl lg:text-9xl font-heading text-white mb-4 sm:mb-6 drop-shadow-2xl tracking-wider">
                 <div className="mb-1 sm:mb-2">WWJD</div>
