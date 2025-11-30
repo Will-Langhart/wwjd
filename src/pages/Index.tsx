@@ -30,7 +30,7 @@ const Index = () => {
   return (
     <main className="flex-1">
       {/* Hero Section */}
-      <section className="relative h-[80vh] min-h-[600px] overflow-hidden">
+      <section className="relative h-[85vh] min-h-[700px] sm:min-h-[600px] overflow-hidden">
           <div 
             className="absolute inset-0 bg-cover bg-center"
             style={{ backgroundImage: `url(${heroImage})` }}
@@ -38,24 +38,24 @@ const Index = () => {
             <div className="absolute inset-0 bg-gradient-to-b from-black/50 via-black/40 to-background" />
           </div>
           
-          <div className="relative container h-full flex flex-col items-center justify-center text-center px-4">
-            <div className="max-w-4xl mx-auto space-y-6 animate-fade-in">
-              <h1 className="text-6xl md:text-8xl lg:text-9xl font-heading text-white mb-6 drop-shadow-2xl tracking-wider">
-                <div className="mb-2">WWJD</div>
+          <div className="relative container h-full flex flex-col items-center justify-center text-center px-4 pt-20 sm:pt-0">
+            <div className="max-w-4xl mx-auto space-y-4 sm:space-y-6 animate-fade-in">
+              <h1 className="text-4xl sm:text-6xl md:text-8xl lg:text-9xl font-heading text-white mb-4 sm:mb-6 drop-shadow-2xl tracking-wider">
+                <div className="mb-1 sm:mb-2">WWJD</div>
                 <div>THE NARROW PATH</div>
               </h1>
-              <p className="text-xl md:text-2xl lg:text-3xl text-white/95 font-light max-w-3xl mx-auto drop-shadow-lg leading-relaxed">
+              <p className="text-lg sm:text-xl md:text-2xl lg:text-3xl text-white/95 font-light max-w-3xl mx-auto drop-shadow-lg leading-relaxed">
                 Faith-inspired fashion for the journey ahead
               </p>
-              <div className="pt-4 pb-8 space-y-4">
-                <p className="text-base md:text-lg text-white/90 italic drop-shadow-md font-serif">
+              <div className="pt-3 sm:pt-4 pb-6 sm:pb-8 space-y-3 sm:space-y-4">
+                <p className="text-sm sm:text-base md:text-lg text-white/90 italic drop-shadow-md font-serif px-4">
                   "Enter through the narrow gate. For wide is the gate and broad is the road that leads to destruction, and many enter through it."
                 </p>
-                <p className="text-lg md:text-xl text-white/95 drop-shadow-lg font-serif">
-                  <span className="font-bold text-white text-xl md:text-2xl">Jesus Christ</span> is the Way, the Truth and the Life
+                <p className="text-base sm:text-lg md:text-xl text-white/95 drop-shadow-lg font-serif">
+                  <span className="font-bold text-white text-lg sm:text-xl md:text-2xl">Jesus Christ</span> is the Way, the Truth and the Life
                 </p>
               </div>
-              <div className="flex flex-col sm:flex-row gap-4 justify-center pt-2">
+              <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center pt-2">
                 <a 
                   href="/shop"
                   className="inline-flex items-center justify-center px-8 py-4 text-lg font-semibold text-white bg-primary hover:bg-primary/90 rounded-lg shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105"
