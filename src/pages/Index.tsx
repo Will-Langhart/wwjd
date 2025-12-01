@@ -47,12 +47,9 @@ const Index = () => {
               <p className="text-lg sm:text-xl md:text-2xl lg:text-3xl text-white/95 font-light max-w-3xl mx-auto drop-shadow-lg leading-relaxed">
                 Faith-inspired fashion for the journey ahead
               </p>
-              <div className="pt-3 sm:pt-4 pb-6 sm:pb-8 space-y-3 sm:space-y-4">
+              <div className="pt-3 sm:pt-4 pb-6 sm:pb-8">
                 <p className="text-sm sm:text-base md:text-lg text-white/90 italic drop-shadow-md font-serif px-4">
                   "Enter through the narrow gate. For wide is the gate and broad is the road that leads to destruction, and many enter through it."
-                </p>
-                <p className="text-base sm:text-lg md:text-xl text-white/95 drop-shadow-lg font-serif">
-                  <span className="font-bold text-white text-lg sm:text-xl md:text-2xl">Jesus Christ</span> is the Way, the Truth and the Life
                 </p>
               </div>
               <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center pt-2">
