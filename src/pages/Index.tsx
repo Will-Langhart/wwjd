@@ -3,19 +3,15 @@ import { getProducts, ShopifyProduct } from "@/lib/shopify";
 import { ProductCard } from "@/components/ProductCard";
 import { Loader2 } from "lucide-react";
 import heroImage from "@/assets/hero-image.jpg";
-
 const Index = () => {
   const [products, setProducts] = useState<ShopifyProduct[]>([]);
   const [loading, setLoading] = useState(true);
-
   useEffect(() => {
     const fetchProducts = async () => {
       try {
         const data = await getProducts(20);
         // Deduplicate products by title, keeping the first occurrence
-        const uniqueProducts = data.filter((product, index, self) =>
-          index === self.findIndex(p => p.node.title === product.node.title)
-        );
+        const uniqueProducts = data.filter((product, index, self) => index === self.findIndex(p => p.node.title === product.node.title));
         setProducts(uniqueProducts);
       } catch (error) {
         console.error('Error fetching products:', error);
@@ -23,18 +19,14 @@ const Index = () => {
         setLoading(false);
       }
     };
-
     fetchProducts();
   }, []);
-
-  return (
-    <main className="flex-1">
+  return <main className="flex-1">
       {/* Hero Section */}
       <section className="relative h-[85vh] min-h-[700px] sm:min-h-[600px] overflow-hidden">
-          <div 
-            className="absolute inset-0 bg-cover bg-center"
-            style={{ backgroundImage: `url(${heroImage})` }}
-          >
+          <div className="absolute inset-0 bg-cover bg-center" style={{
+        backgroundImage: `url(${heroImage})`
+      }}>
             <div className="absolute inset-0 bg-gradient-to-b from-black/50 via-black/40 to-background" />
           </div>
           
@@ -53,16 +45,10 @@ const Index = () => {
                 </p>
               </div>
               <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center pt-2">
-                <a 
-                  href="/shop"
-                  className="inline-flex items-center justify-center px-8 py-4 text-lg font-semibold text-white bg-primary hover:bg-primary/90 rounded-lg shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105"
-                >
+                <a href="/shop" className="inline-flex items-center justify-center px-8 py-4 text-lg font-semibold text-white bg-primary hover:bg-primary/90 rounded-lg shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105">
                   Shop The Collection
                 </a>
-                <a 
-                  href="#featured"
-                  className="inline-flex items-center justify-center px-8 py-4 text-lg font-semibold text-white bg-white/10 hover:bg-white/20 backdrop-blur-sm border-2 border-white/30 rounded-lg shadow-lg transition-all duration-300 hover:scale-105"
-                >
+                <a href="#featured" className="inline-flex items-center justify-center px-8 py-4 text-lg font-semibold text-white bg-white/10 hover:bg-white/20 backdrop-blur-sm border-2 border-white/30 rounded-lg shadow-lg transition-all duration-300 hover:scale-105">
                   Explore
                 </a>
               </div>
@@ -74,18 +60,12 @@ const Index = () => {
         <section className="py-12 sm:py-16 bg-muted/30">
           <div className="container px-4">
             <div className="text-center mb-8">
-              <h2 className="text-2xl sm:text-3xl font-bold mb-3">Featured Product</h2>
+              <h2 className="text-2xl sm:text-3xl font-bold mb-3">​</h2>
               <p className="text-muted-foreground">King of Kings Oversized Hoodie</p>
             </div>
             <div className="w-full">
               <div className="relative rounded-xl overflow-hidden shadow-2xl">
-                <video
-                  className="w-full h-auto"
-                  autoPlay
-                  muted
-                  loop
-                  playsInline
-                >
+                <video className="w-full h-auto" autoPlay muted loop playsInline>
                   <source src="/videos/king-of-kings-hoodie.mp4" type="video/mp4" />
                   Your browser does not support the video tag.
                 </video>
@@ -101,12 +81,9 @@ const Index = () => {
             <p className="text-muted-foreground">Grounded in Scripture. Designed for the Journey.</p>
           </div>
           
-          {loading ? (
-            <div className="flex justify-center items-center min-h-[400px]">
+          {loading ? <div className="flex justify-center items-center min-h-[400px]">
               <Loader2 className="w-8 h-8 animate-spin text-primary" />
-            </div>
-          ) : products.length === 0 ? (
-            <div className="text-center py-16">
+            </div> : products.length === 0 ? <div className="text-center py-16">
               <h3 className="text-2xl font-semibold mb-4">No products found</h3>
               <p className="text-muted-foreground mb-8">
                 We're working on adding products to our store. Check back soon!
@@ -114,17 +91,10 @@ const Index = () => {
               <p className="text-sm text-muted-foreground">
                 Tell us what products you'd like to see, and we'll add them for you.
               </p>
-            </div>
-          ) : (
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-              {products.map((product) => (
-                <ProductCard key={product.node.id} product={product} />
-              ))}
-            </div>
-          )}
+            </div> : <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+              {products.map(product => <ProductCard key={product.node.id} product={product} />)}
+            </div>}
         </section>
-      </main>
-  );
+      </main>;
 };
-
 export default Index;
