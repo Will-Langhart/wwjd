@@ -77,15 +77,14 @@ const Index = () => {
               <h2 className="text-2xl sm:text-3xl font-bold mb-3">Featured Product</h2>
               <p className="text-muted-foreground">King of Kings Oversized Hoodie</p>
             </div>
-            <div className="max-w-4xl mx-auto">
-              <div className="relative aspect-video rounded-xl overflow-hidden shadow-2xl">
+            <div className="w-full">
+              <div className="relative rounded-xl overflow-hidden shadow-2xl">
                 <video
-                  className="w-full h-full object-cover"
+                  className="w-full h-auto"
                   autoPlay
                   muted
                   loop
                   playsInline
-                  poster=""
                 >
                   <source src="/videos/king-of-kings-hoodie.mp4" type="video/mp4" />
                   Your browser does not support the video tag.
