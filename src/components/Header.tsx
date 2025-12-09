@@ -2,11 +2,18 @@ import { CartDrawer } from "./CartDrawer";
 import { Link } from "react-router-dom";
 import { useState, useEffect } from "react";
 import { getSupabaseClient } from "@/integrations/supabase/safeClient";
-import { User } from "lucide-react";
+import { User, Menu, X } from "lucide-react";
 import wwjdLogo from "@/assets/wwjd_logo.png";
+import { Button } from "@/components/ui/button";
+import {
+  Sheet,
+  SheetContent,
+  SheetTrigger,
+} from "@/components/ui/sheet";
 
 export const Header = () => {
   const [user, setUser] = useState<any>(null);
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   useEffect(() => {
     let isMounted = true;
@@ -39,6 +46,43 @@ export const Header = () => {
     };
   }, []);
 
+  const NavLinks = ({ onClick }: { onClick?: () => void }) => (
+    <>
+      <Link 
+        to="/" 
+        className="text-base font-medium hover:text-primary transition-colors py-2"
+        onClick={onClick}
+      >
+        Home
+      </Link>
+      <Link 
+        to="/shop" 
+        className="text-base font-medium hover:text-primary transition-colors py-2"
+        onClick={onClick}
+      >
+        Shop
+      </Link>
+      {user ? (
+        <Link 
+          to="/profile" 
+          className="text-base font-medium hover:text-primary transition-colors flex items-center gap-2 py-2"
+          onClick={onClick}
+        >
+          <User className="w-4 h-4" />
+          Profile
+        </Link>
+      ) : (
+        <Link 
+          to="/auth" 
+          className="text-base font-medium hover:text-primary transition-colors py-2"
+          onClick={onClick}
+        >
+          Login
+        </Link>
+      )}
+    </>
+  );
+
   return (
     <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
       <div className="container flex h-16 items-center justify-between">
@@ -50,25 +94,28 @@ export const Header = () => {
           />
         </Link>
         
-        <nav className="flex items-center gap-6">
-          <Link to="/" className="text-sm font-medium hover:text-primary transition-colors">
-            Home
-          </Link>
-          <Link to="/shop" className="text-sm font-medium hover:text-primary transition-colors">
-            Shop
-          </Link>
-          {user ? (
-            <Link to="/profile" className="text-sm font-medium hover:text-primary transition-colors flex items-center gap-2">
-              <User className="w-4 h-4" />
-              Profile
-            </Link>
-          ) : (
-            <Link to="/auth" className="text-sm font-medium hover:text-primary transition-colors">
-              Login
-            </Link>
-          )}
+        {/* Desktop Navigation */}
+        <nav className="hidden md:flex items-center gap-6">
+          <NavLinks />
           <CartDrawer />
         </nav>
+
+        {/* Mobile Navigation */}
+        <div className="flex md:hidden items-center gap-2">
+          <CartDrawer />
+          <Sheet open={mobileMenuOpen} onOpenChange={setMobileMenuOpen}>
+            <SheetTrigger asChild>
+              <Button variant="ghost" size="icon" className="h-10 w-10">
+                <Menu className="h-6 w-6" />
+              </Button>
+            </SheetTrigger>
+            <SheetContent side="right" className="w-[280px] pt-12">
+              <nav className="flex flex-col gap-4">
+                <NavLinks onClick={() => setMobileMenuOpen(false)} />
+              </nav>
+            </SheetContent>
+          </Sheet>
+        </div>
       </div>
     </header>
   );
