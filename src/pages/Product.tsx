@@ -195,20 +195,20 @@ const Product = () => {
             )}
 
             {/* Product Info Below Image */}
-            <div className="space-y-12 md:space-y-6">
+            <div className="space-y-6">
               <div>
-                <h1 className="text-6xl md:text-3xl font-bold mb-5 md:mb-3 leading-tight">{node.title}</h1>
-                <p className="text-5xl md:text-2xl font-bold text-primary">
+                <h1 className="text-2xl md:text-3xl font-bold mb-2 leading-tight">{node.title}</h1>
+                <p className="text-xl md:text-2xl font-bold text-primary">
                   {currency} ${price}
                 </p>
               </div>
 
               {/* Variant Selectors */}
               {node.options.length > 0 && (
-                <div className="space-y-10 md:space-y-4">
+                <div className="space-y-4">
                   {node.options.map((option) => (
                     <div key={option.name}>
-                      <label className="text-2xl md:text-base font-semibold mb-5 md:mb-3 block">
+                      <label className="text-sm md:text-base font-semibold mb-2 block">
                         {option.name.charAt(0).toUpperCase() + option.name.slice(1)}
                       </label>
                       <Select
@@ -220,12 +220,12 @@ const Product = () => {
                           }))
                         }
                       >
-                        <SelectTrigger className="w-full h-20 md:h-12 text-2xl md:text-base">
+                        <SelectTrigger className="w-full h-11 md:h-12 text-base">
                           <SelectValue placeholder={`Select ${option.name}`} />
                         </SelectTrigger>
                         <SelectContent>
                           {option.values.map((value) => (
-                            <SelectItem key={value} value={value} className="text-2xl md:text-base py-5 md:py-2">
+                            <SelectItem key={value} value={value} className="text-base py-2">
                               {value}
                             </SelectItem>
                           ))}
@@ -242,19 +242,19 @@ const Product = () => {
                   size="lg" 
                   onClick={handleAddToCart}
                   disabled={!selectedVariant?.availableForSale}
-                  className="flex-1 h-24 md:h-14 text-2xl md:text-base font-semibold"
+                  className="flex-1 h-12 md:h-14 text-base font-semibold"
                 >
-                  <ShoppingCart className="w-8 h-8 md:w-5 md:h-5 mr-3 md:mr-2" />
+                  <ShoppingCart className="w-5 h-5 mr-2" />
                   {selectedVariant?.availableForSale ? 'Add to Cart' : 'Out of Stock'}
                 </Button>
                 <Button
                   size="lg"
                   variant="outline"
                   onClick={handleWishlistToggle}
-                  className="h-24 md:h-14 w-24 md:w-14 flex-shrink-0"
+                  className="h-12 md:h-14 w-12 md:w-14 flex-shrink-0"
                 >
                   <Heart 
-                    className={`w-8 h-8 md:w-5 md:h-5 ${isInWishlist(node.id) ? 'fill-primary text-primary' : ''}`} 
+                    className={`w-5 h-5 ${isInWishlist(node.id) ? 'fill-primary text-primary' : ''}`} 
                   />
                 </Button>
               </div>
@@ -264,9 +264,9 @@ const Product = () => {
           {/* Right Column - Description Only */}
           <div className="space-y-6">
             {node.descriptionHtml && (
-              <div className="prose prose-xl md:prose-sm max-w-none">
+              <div className="prose prose-sm max-w-none">
                 <div 
-                  className="product-description space-y-4 text-xl md:text-base"
+                  className="product-description space-y-4 text-sm md:text-base"
                   dangerouslySetInnerHTML={{ __html: node.descriptionHtml }}
                 />
               </div>
