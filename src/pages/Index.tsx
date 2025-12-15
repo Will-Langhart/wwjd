@@ -56,24 +56,6 @@ const Index = () => {
           </div>
         </section>
 
-        {/* Product Video Section */}
-        <section className="py-12 sm:py-16 bg-muted/30">
-          <div className="container px-4">
-            <div className="text-center mb-8">
-              <h2 className="text-2xl sm:text-3xl font-bold mb-3">​</h2>
-              <p className="text-muted-foreground">King of Kings Oversized Hoodie</p>
-            </div>
-            <div className="w-full">
-              <div className="relative rounded-xl overflow-hidden shadow-2xl">
-                <video className="w-full h-auto" autoPlay muted loop playsInline>
-                  <source src="/videos/king-of-kings-hoodie.mp4" type="video/mp4" />
-                  Your browser does not support the video tag.
-                </video>
-              </div>
-            </div>
-          </div>
-        </section>
-
         {/* Featured Products Section */}
         <section id="featured" className="container py-16">
           <div className="text-center mb-12">
