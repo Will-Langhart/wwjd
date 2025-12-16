@@ -174,7 +174,7 @@ const Product = () => {
   })();
 
   return (
-    <main className="flex-1 container py-8">
+    <main className="flex-1 w-full max-w-full overflow-x-hidden px-4 md:px-8 py-8">
         <Button 
           variant="ghost" 
           className="mb-6"
@@ -184,23 +184,23 @@ const Product = () => {
           Back to Shop
         </Button>
 
-        <div className="grid md:grid-cols-2 gap-8">
+        <div className="grid md:grid-cols-2 gap-8 max-w-full">
           {/* Left Column - Image + Product Details */}
-          <div className="space-y-6">
+          <div className="space-y-6 min-w-0">
             {/* Image Carousel */}
             {displayImages.length > 0 ? (
-              <Carousel className="w-full relative" key={selectedVariant?.id}>
-                <CarouselContent>
+              <Carousel className="w-full max-w-full relative" key={selectedVariant?.id}>
+                <CarouselContent className="-ml-0">
                   {displayImages.map((image, index) => (
-                    <CarouselItem key={index}>
+                    <CarouselItem key={index} className="pl-0">
                       <div
-                        className="aspect-square overflow-hidden rounded-lg bg-muted/40 relative group cursor-pointer"
+                        className="w-full aspect-square overflow-hidden rounded-lg bg-muted/40 relative group cursor-pointer"
                         onClick={() => setZoomImageUrl(image.node.url)}
                       >
                         <img
                           src={image.node.url}
                           alt={image.node.altText || `${node.title} - Image ${index + 1}`}
-                          className="w-full h-full object-contain"
+                          className="w-full h-full object-contain max-w-full"
                         />
                         <div className="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-colors flex items-center justify-center">
                           <ZoomIn className="w-8 h-8 text-white opacity-0 group-hover:opacity-100 transition-opacity" />
