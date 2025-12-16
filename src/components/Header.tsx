@@ -2,18 +2,12 @@ import { CartDrawer } from "./CartDrawer";
 import { Link } from "react-router-dom";
 import { useState, useEffect } from "react";
 import { getSupabaseClient } from "@/integrations/supabase/safeClient";
-import { User, Menu, X } from "lucide-react";
+import { User } from "lucide-react";
 import wwjdLogo from "@/assets/wwjd_logo.png";
 import { Button } from "@/components/ui/button";
-import {
-  Sheet,
-  SheetContent,
-  SheetTrigger,
-} from "@/components/ui/sheet";
 
 export const Header = () => {
   const [user, setUser] = useState<any>(null);
-  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   useEffect(() => {
     let isMounted = true;
@@ -103,18 +97,14 @@ export const Header = () => {
         {/* Mobile Navigation */}
         <div className="flex md:hidden items-center gap-2">
           <CartDrawer />
-          <Sheet open={mobileMenuOpen} onOpenChange={setMobileMenuOpen}>
-            <SheetTrigger asChild>
-              <Button variant="ghost" size="icon" className="h-10 w-10">
-                <Menu className="h-6 w-6" />
-              </Button>
-            </SheetTrigger>
-            <SheetContent side="right" className="w-[280px] pt-12">
-              <nav className="flex flex-col gap-4">
-                <NavLinks onClick={() => setMobileMenuOpen(false)} />
-              </nav>
-            </SheetContent>
-          </Sheet>
+          <Link
+            to={user ? "/profile" : "/auth"}
+            aria-label={user ? "Profile" : "Login"}
+          >
+            <Button variant="ghost" size="icon" className="h-10 w-10">
+              <User className="h-5 w-5" />
+            </Button>
+          </Link>
         </div>
       </div>
     </header>

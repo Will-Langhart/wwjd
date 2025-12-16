@@ -42,11 +42,11 @@ const Product = () => {
       try {
         const data = await getProductByHandle(handle);
         setProduct(data);
-        
+
         // Set default selected options to first available variant
         if (data && data.node.options.length > 0) {
           const defaultOptions: Record<string, string> = {};
-          data.node.options.forEach(option => {
+          data.node.options.forEach((option) => {
             if (option.values.length > 0) {
               defaultOptions[option.name.toLowerCase()] = option.values[0];
             }
@@ -54,8 +54,8 @@ const Product = () => {
           setSelectedOptions(defaultOptions);
         }
       } catch (error) {
-        console.error('Error fetching product:', error);
-        toast.error('Failed to load product');
+        console.error("Error fetching product:", error);
+        toast.error("Failed to load product");
       } finally {
         setLoading(false);
       }
@@ -63,6 +63,34 @@ const Product = () => {
 
     fetchProduct();
   }, [handle]);
+
+  useEffect(() => {
+    if (!product) return;
+
+    // Basic SEO (SPA): update title, description, canonical
+    const title = `${product.node.title} | WWJD: The Narrow Path`;
+    document.title = title.length > 60 ? `${title.slice(0, 57)}...` : title;
+
+    const metaDesc = document.querySelector('meta[name="description"]') as HTMLMetaElement | null;
+    if (metaDesc) {
+      const raw = (product.node.description || "").replace(/\s+/g, " ").trim();
+      const desc = raw
+        ? raw.length > 160
+          ? `${raw.slice(0, 157)}...`
+          : raw
+        : "Faith-inspired Christian fashion and apparel. Shop our collection of quality clothing that shares your beliefs and values.";
+      metaDesc.content = desc;
+    }
+
+    const canonicalHref = `${window.location.origin}/product/${handle ?? product.node.handle}`;
+    let canonical = document.querySelector('link[rel="canonical"]') as HTMLLinkElement | null;
+    if (!canonical) {
+      canonical = document.createElement("link");
+      canonical.rel = "canonical";
+      document.head.appendChild(canonical);
+    }
+    canonical.href = canonicalHref;
+  }, [product, handle]);
 
   // Find the variant that matches the selected options
   const selectedVariant = product?.node.variants.edges.find(({ node }) => {
@@ -165,14 +193,14 @@ const Product = () => {
                 <CarouselContent>
                   {displayImages.map((image, index) => (
                     <CarouselItem key={index}>
-                      <div 
-                        className="aspect-square overflow-hidden rounded-lg bg-secondary/10 relative group cursor-pointer"
+                      <div
+                        className="aspect-square overflow-hidden rounded-lg bg-muted/40 relative group cursor-pointer"
                         onClick={() => setZoomImageUrl(image.node.url)}
                       >
                         <img
                           src={image.node.url}
                           alt={image.node.altText || `${node.title} - Image ${index + 1}`}
-                          className="w-full h-full object-cover"
+                          className="w-full h-full object-contain"
                         />
                         <div className="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-colors flex items-center justify-center">
                           <ZoomIn className="w-8 h-8 text-white opacity-0 group-hover:opacity-100 transition-opacity" />
