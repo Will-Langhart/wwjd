@@ -28,7 +28,7 @@ const Index = () => {
   return (
     <main className="flex-1">
       {/* Hero Section */}
-      <section className="relative h-screen min-h-[700px] overflow-hidden">
+      <section className="relative h-[calc(100vh-4rem)] min-h-[600px] overflow-hidden">
         {/* Background with parallax effect */}
         <div 
           className="absolute inset-0 bg-cover bg-center bg-fixed scale-105" 
