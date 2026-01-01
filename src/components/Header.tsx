@@ -78,16 +78,16 @@ export const Header = () => {
   );
 
   return (
-    <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
+    <header className="fixed top-0 inset-x-0 z-50 w-full border-b bg-background/80 backdrop-blur-xl supports-[backdrop-filter]:bg-background/60">
       <div className="container flex h-16 items-center justify-between">
         <Link to="/" className="flex items-center space-x-2">
-          <img 
-            src={wwjdLogo} 
-            alt="WWJD Logo" 
+          <img
+            src={wwjdLogo}
+            alt="WWJD Logo"
             className="h-10 w-auto hover:opacity-80 transition-opacity dark:invert"
           />
         </Link>
-        
+
         {/* Desktop Navigation */}
         <nav className="hidden md:flex items-center gap-6">
           <NavLinks />
@@ -97,10 +97,7 @@ export const Header = () => {
         {/* Mobile Navigation */}
         <div className="flex md:hidden items-center gap-2">
           <CartDrawer />
-          <Link
-            to={user ? "/profile" : "/auth"}
-            aria-label={user ? "Profile" : "Login"}
-          >
+          <Link to={user ? "/profile" : "/auth"} aria-label={user ? "Profile" : "Login"}>
             <Button variant="ghost" size="icon" className="h-10 w-10">
               <User className="h-5 w-5" />
             </Button>
