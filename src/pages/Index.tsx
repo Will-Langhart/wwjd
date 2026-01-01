@@ -64,7 +64,7 @@ const Index = () => {
             </h1>
 
             {/* Tagline */}
-            <p className="text-lg sm:text-xl md:text-2xl text-muted-foreground font-light max-w-2xl mx-auto leading-relaxed animate-fade-in stagger-2" style={{ animationFillMode: 'both' }}>
+            <p className="text-lg sm:text-xl md:text-2xl text-foreground font-medium max-w-2xl mx-auto leading-relaxed animate-fade-in stagger-2" style={{ animationFillMode: 'both' }}>
               Wear your faith boldly. Designed for those who walk the narrow path.
             </p>
 
