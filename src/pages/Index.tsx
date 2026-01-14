@@ -48,15 +48,9 @@ const Index = () => {
 
         <div className="relative container h-full flex flex-col px-4">
           {/* Top centered content - above the cross */}
-          <div className="flex flex-col items-center text-center pt-8 md:pt-12 space-y-4">
-            {/* Badge */}
-            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full glass text-sm font-medium text-foreground/80 animate-fade-in">
-              <Sparkles className="w-4 h-4 text-primary" />
-              Faith-Forward Fashion
-            </div>
-
+          <div className="flex flex-col items-center text-center pt-4 md:pt-6">
             {/* Main heading */}
-            <h1 className="animate-fade-in stagger-1" style={{ animationFillMode: 'both' }}>
+            <h1 className="animate-fade-in" style={{ animationFillMode: 'both' }}>
               <span className="block text-5xl sm:text-7xl md:text-8xl font-heading text-foreground tracking-tight mb-1">
                 WWJD
               </span>
@@ -64,7 +58,6 @@ const Index = () => {
                 THE NARROW PATH
               </span>
             </h1>
-
           </div>
 
           {/* Spacer to let the cross show in the middle */}
