@@ -65,10 +65,6 @@ const Index = () => {
               </span>
             </h1>
 
-            {/* Tagline */}
-            <p className="text-base sm:text-lg text-foreground/90 font-medium max-w-lg leading-relaxed animate-fade-in stagger-2" style={{ animationFillMode: 'both' }}>
-              Wear your faith boldly. Designed for those who walk the narrow path.
-            </p>
           </div>
 
           {/* Spacer to let the cross show in the middle */}
