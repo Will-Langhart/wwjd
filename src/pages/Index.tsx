@@ -34,15 +34,16 @@ const Index = () => {
           className="absolute inset-0 bg-cover bg-center bg-fixed scale-105" 
           style={{ backgroundImage: `url(${heroImage})` }}
         >
-          <div className="absolute inset-0 bg-gradient-to-b from-accent/80 via-accent/60 to-background" />
-          <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,transparent_0%,hsl(var(--background))_100%)] opacity-60" />
+          <div className="absolute inset-0 bg-gradient-to-b from-accent/70 via-transparent to-background/95" />
+          <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,transparent_0%,hsl(var(--background)/0.8)_100%)]" />
         </div>
         
-        {/* Floating decorative elements */}
+        {/* Floating decorative elements - ocean wave inspired */}
         <div className="absolute inset-0 overflow-hidden pointer-events-none">
-          <div className="absolute top-1/4 left-10 w-32 h-32 border border-primary/20 rounded-full animate-pulse" style={{ animationDuration: '4s' }} />
-          <div className="absolute bottom-1/3 right-16 w-24 h-24 border border-primary/15 rounded-full animate-pulse" style={{ animationDuration: '5s', animationDelay: '1s' }} />
-          <Cross className="absolute top-1/3 right-1/4 w-8 h-8 text-primary/20 animate-pulse" style={{ animationDuration: '3s' }} />
+          <div className="absolute top-1/4 left-10 w-32 h-32 border-2 border-primary/30 rounded-full animate-pulse" style={{ animationDuration: '4s' }} />
+          <div className="absolute bottom-1/3 right-16 w-24 h-24 border-2 border-accent/20 rounded-full animate-pulse" style={{ animationDuration: '5s', animationDelay: '1s' }} />
+          <Cross className="absolute top-1/3 right-1/4 w-8 h-8 text-primary/30 animate-pulse" style={{ animationDuration: '3s' }} />
+          <div className="absolute bottom-1/4 left-1/4 w-16 h-16 border border-muted/30 rounded-full animate-pulse" style={{ animationDuration: '6s', animationDelay: '2s' }} />
         </div>
 
         <div className="relative container h-full flex flex-col items-center justify-center text-center px-4">
