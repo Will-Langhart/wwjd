@@ -46,8 +46,9 @@ const Index = () => {
           <div className="absolute bottom-1/4 left-1/4 w-16 h-16 border border-muted/30 rounded-full animate-pulse" style={{ animationDuration: '6s', animationDelay: '2s' }} />
         </div>
 
-        <div className="relative container h-full flex flex-col items-start justify-end pb-24 md:pb-32 px-4">
-          <div className="max-w-xl space-y-6">
+        <div className="relative container h-full flex flex-col px-4">
+          {/* Top centered content - above the cross */}
+          <div className="flex flex-col items-center text-center pt-8 md:pt-12 space-y-4">
             {/* Badge */}
             <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full glass text-sm font-medium text-foreground/80 animate-fade-in">
               <Sparkles className="w-4 h-4 text-primary" />
@@ -56,21 +57,27 @@ const Index = () => {
 
             {/* Main heading */}
             <h1 className="animate-fade-in stagger-1" style={{ animationFillMode: 'both' }}>
-              <span className="block text-5xl sm:text-7xl md:text-8xl font-heading text-foreground tracking-tight mb-2">
+              <span className="block text-5xl sm:text-7xl md:text-8xl font-heading text-foreground tracking-tight mb-1">
                 WWJD
               </span>
-              <span className="block text-3xl sm:text-4xl md:text-5xl font-heading text-gradient tracking-wide">
+              <span className="block text-2xl sm:text-4xl md:text-5xl font-heading text-gradient tracking-wide">
                 THE NARROW PATH
               </span>
             </h1>
 
             {/* Tagline */}
-            <p className="text-base sm:text-lg md:text-xl text-foreground/90 font-medium max-w-md leading-relaxed animate-fade-in stagger-2" style={{ animationFillMode: 'both' }}>
+            <p className="text-base sm:text-lg text-foreground/90 font-medium max-w-lg leading-relaxed animate-fade-in stagger-2" style={{ animationFillMode: 'both' }}>
               Wear your faith boldly. Designed for those who walk the narrow path.
             </p>
+          </div>
 
+          {/* Spacer to let the cross show in the middle */}
+          <div className="flex-1" />
+
+          {/* Bottom centered content - below the cross */}
+          <div className="flex flex-col items-center text-center pb-24 md:pb-28 space-y-5">
             {/* Scripture quote */}
-            <div className="max-w-md px-5 py-3 rounded-lg glass animate-fade-in stagger-3" style={{ animationFillMode: 'both' }}>
+            <div className="max-w-lg px-5 py-3 rounded-lg glass animate-fade-in stagger-3" style={{ animationFillMode: 'both' }}>
               <p className="text-sm text-muted-foreground italic font-serif leading-relaxed">
                 "Enter through the narrow gate. For wide is the gate and broad is the road that leads to destruction."
               </p>
@@ -78,7 +85,7 @@ const Index = () => {
             </div>
 
             {/* CTA buttons */}
-            <div className="flex flex-col sm:flex-row gap-3 pt-2 animate-fade-in stagger-4" style={{ animationFillMode: 'both' }}>
+            <div className="flex flex-col sm:flex-row gap-3 animate-fade-in stagger-4" style={{ animationFillMode: 'both' }}>
               <a 
                 href="/shop" 
                 className="group inline-flex items-center justify-center px-6 py-3 text-base font-semibold bg-primary text-primary-foreground rounded-lg btn-glow transition-all duration-300 hover:scale-[1.02]"
@@ -96,7 +103,7 @@ const Index = () => {
           </div>
 
           {/* Scroll indicator */}
-          <div className="absolute bottom-8 left-1/2 -translate-x-1/2 animate-bounce">
+          <div className="absolute bottom-6 left-1/2 -translate-x-1/2 animate-bounce">
             <a href="#featured" className="flex flex-col items-center gap-2 text-muted-foreground/60 hover:text-foreground transition-colors">
               <span className="text-xs font-medium tracking-widest uppercase">Scroll</span>
               <ArrowDown className="w-5 h-5" />
