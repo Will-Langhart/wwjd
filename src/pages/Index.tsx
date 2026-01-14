@@ -51,10 +51,10 @@ const Index = () => {
           <div className="flex flex-col items-center text-center pt-4 md:pt-6">
             {/* Main heading */}
             <h1 className="animate-fade-in" style={{ animationFillMode: 'both' }}>
-              <span className="block text-5xl sm:text-7xl md:text-8xl font-heading text-white tracking-tight mb-1 text-3d">
+              <span className="block text-5xl sm:text-7xl md:text-8xl font-heading tracking-tight mb-1 text-3d" style={{ color: '#FFF8F0' }}>
                 WWJD
               </span>
-              <span className="block text-2xl sm:text-4xl md:text-5xl font-heading text-secondary tracking-wide text-3d-accent">
+              <span className="block text-2xl sm:text-4xl md:text-5xl font-heading tracking-wide text-3d-accent text-white">
                 THE NARROW PATH
               </span>
             </h1>
