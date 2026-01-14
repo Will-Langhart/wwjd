@@ -46,8 +46,8 @@ const Index = () => {
           <div className="absolute bottom-1/4 left-1/4 w-16 h-16 border border-muted/30 rounded-full animate-pulse" style={{ animationDuration: '6s', animationDelay: '2s' }} />
         </div>
 
-        <div className="relative container h-full flex flex-col items-center justify-center text-center px-4">
-          <div className="max-w-5xl mx-auto space-y-8">
+        <div className="relative container h-full flex flex-col items-start justify-end pb-24 md:pb-32 px-4">
+          <div className="max-w-xl space-y-6">
             {/* Badge */}
             <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full glass text-sm font-medium text-foreground/80 animate-fade-in">
               <Sparkles className="w-4 h-4 text-primary" />
@@ -56,39 +56,39 @@ const Index = () => {
 
             {/* Main heading */}
             <h1 className="animate-fade-in stagger-1" style={{ animationFillMode: 'both' }}>
-              <span className="block text-5xl sm:text-7xl md:text-8xl lg:text-9xl font-heading text-foreground tracking-tight mb-2">
+              <span className="block text-5xl sm:text-7xl md:text-8xl font-heading text-foreground tracking-tight mb-2">
                 WWJD
               </span>
-              <span className="block text-3xl sm:text-5xl md:text-6xl lg:text-7xl font-heading text-gradient tracking-wide">
+              <span className="block text-3xl sm:text-4xl md:text-5xl font-heading text-gradient tracking-wide">
                 THE NARROW PATH
               </span>
             </h1>
 
             {/* Tagline */}
-            <p className="text-lg sm:text-xl md:text-2xl text-foreground font-medium max-w-2xl mx-auto leading-relaxed animate-fade-in stagger-2" style={{ animationFillMode: 'both' }}>
+            <p className="text-base sm:text-lg md:text-xl text-foreground/90 font-medium max-w-md leading-relaxed animate-fade-in stagger-2" style={{ animationFillMode: 'both' }}>
               Wear your faith boldly. Designed for those who walk the narrow path.
             </p>
 
             {/* Scripture quote */}
-            <div className="max-w-2xl mx-auto px-6 py-4 rounded-lg glass animate-fade-in stagger-3" style={{ animationFillMode: 'both' }}>
-              <p className="text-sm sm:text-base text-muted-foreground italic font-serif leading-relaxed">
+            <div className="max-w-md px-5 py-3 rounded-lg glass animate-fade-in stagger-3" style={{ animationFillMode: 'both' }}>
+              <p className="text-sm text-muted-foreground italic font-serif leading-relaxed">
                 "Enter through the narrow gate. For wide is the gate and broad is the road that leads to destruction."
               </p>
               <p className="text-xs text-muted-foreground/70 mt-2 font-medium tracking-wide">— MATTHEW 7:13</p>
             </div>
 
             {/* CTA buttons */}
-            <div className="flex flex-col sm:flex-row gap-4 justify-center pt-4 animate-fade-in stagger-4" style={{ animationFillMode: 'both' }}>
+            <div className="flex flex-col sm:flex-row gap-3 pt-2 animate-fade-in stagger-4" style={{ animationFillMode: 'both' }}>
               <a 
                 href="/shop" 
-                className="group inline-flex items-center justify-center px-8 py-4 text-base font-semibold bg-primary text-primary-foreground rounded-lg btn-glow transition-all duration-300 hover:scale-[1.02]"
+                className="group inline-flex items-center justify-center px-6 py-3 text-base font-semibold bg-primary text-primary-foreground rounded-lg btn-glow transition-all duration-300 hover:scale-[1.02]"
               >
                 Shop Collection
                 <ArrowDown className="ml-2 w-4 h-4 rotate-[-90deg] transition-transform group-hover:translate-x-1" />
               </a>
               <a 
                 href="#featured" 
-                className="inline-flex items-center justify-center px-8 py-4 text-base font-semibold text-foreground glass rounded-lg hover:bg-background/90 transition-all duration-300"
+                className="inline-flex items-center justify-center px-6 py-3 text-base font-semibold text-foreground glass rounded-lg hover:bg-background/90 transition-all duration-300"
               >
                 View Featured
               </a>
