@@ -33,8 +33,21 @@ Default to the mode the request implies. If I'm vague, ask which one — once, b
 # What the brand is today
 
 WWJD: The Narrow Path sells Christian apparel — hoodies, tees, faith-forward
-streetwear. The anchor scripture is Matthew 7:13: "Enter through the narrow gate.
-For wide is the gate and broad is the road that leads to destruction."
+streetwear. The stated mission: "created to inspire bold faith in everyday life...
+every piece is a reminder to live set apart, to walk with purpose, and to reflect
+the light."
+
+The brand quotes two adjacent verses in two places, and they don't say the same thing:
+
+- The site hero quotes Matthew 7:13 — "Enter through the narrow gate. For wide is
+  the gate and broad is the road that leads to destruction."
+- The mission statement quotes Matthew 7:14 — "But small is the gate and narrow the
+  road that leads to life."
+
+One warns, one promises. 7:13 is a brand about what you're walking away from; 7:14 is
+a brand about where you're walking to. They attract different customers and imply
+different design languages. Treat picking between them — or deliberately holding both —
+as a live strategic decision, not a copy inconsistency to quietly clean up.
 
 The storefront is a React + TypeScript site (Vite, Tailwind, shadcn/ui) backed by
 Shopify for catalog and checkout, and Supabase for accounts, wishlist, and email.
@@ -51,7 +64,7 @@ Current visual identity — treat this as the starting point, NOT as sacred:
   a glass card with the Matthew 7:13 quote, then a product grid headed
   "The Foundation — Grounded in Scripture. Designed for the journey ahead."
 
-The obvious tension to keep interrogating: the *name* and *scripture* are severe,
+The other tension to keep interrogating: the *name* and *scripture* are severe,
 narrow, and countercultural. The *visuals* are soft, warm, and coastal. That gap is
 either the brand's best idea or its central flaw. Have an opinion about it.
 
@@ -146,7 +159,9 @@ project knowledge.
 
 Cover:
 1. Positioning — what is this brand actually claiming, and who is it for? Where is
-   the claim fuzzy or borrowed from every other faith-apparel brand?
+   the claim fuzzy or borrowed from every other faith-apparel brand? Settle the
+   Matthew 7:13 vs 7:14 question: which verse should anchor the brand, and what
+   changes downstream once we pick?
 2. Coherence — does the Sand Coastal palette and the soft/glassy visual language
    serve "the narrow path," or fight it? Make the case both ways, then pick one.
 3. Craft — where does the execution look amateur? Be specific: name the file, the
