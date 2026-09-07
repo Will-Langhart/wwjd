@@ -44,14 +44,14 @@ export const Header = () => {
     <>
       <Link 
         to="/" 
-        className="text-base font-medium hover:text-primary transition-colors py-2"
+        className="label-caps !text-[0.7rem] text-foreground hover:text-primary transition-colors py-2"
         onClick={onClick}
       >
         Home
       </Link>
       <Link 
         to="/shop" 
-        className="text-base font-medium hover:text-primary transition-colors py-2"
+        className="label-caps !text-[0.7rem] text-foreground hover:text-primary transition-colors py-2"
         onClick={onClick}
       >
         Shop
@@ -59,7 +59,7 @@ export const Header = () => {
       {user ? (
         <Link 
           to="/profile" 
-          className="text-base font-medium hover:text-primary transition-colors flex items-center gap-2 py-2"
+          className="label-caps !text-[0.7rem] text-foreground hover:text-primary transition-colors flex items-center gap-2 py-2"
           onClick={onClick}
         >
           <User className="w-4 h-4" />
@@ -68,7 +68,7 @@ export const Header = () => {
       ) : (
         <Link 
           to="/auth" 
-          className="text-base font-medium hover:text-primary transition-colors py-2"
+          className="label-caps !text-[0.7rem] text-foreground hover:text-primary transition-colors py-2"
           onClick={onClick}
         >
           Login
@@ -78,18 +78,24 @@ export const Header = () => {
   );
 
   return (
-    <header className="fixed top-0 inset-x-0 z-50 w-full border-b bg-background/80 backdrop-blur-xl supports-[backdrop-filter]:bg-background/60">
-      <div className="container flex h-16 items-center justify-between">
-        <Link to="/" className="flex items-center space-x-2">
+    <header className="fixed top-0 inset-x-0 z-50 w-full nav-surface">
+      <div className="container flex h-16 items-center justify-between px-6">
+        {/* Typographic wordmark. Replaces the 1.4 MB logo PNG entirely. */}
+        <Link to="/" className="flex items-center gap-3 group" aria-label="The Narrow Path — home">
           <img
             src={wwjdLogo}
-            alt="WWJD Logo"
-            className="h-10 w-auto hover:opacity-80 transition-opacity dark:invert"
+            alt=""
+            width={1024}
+            height={1024}
+            className="h-9 w-auto transition-opacity group-hover:opacity-75 dark:invert"
           />
+          <span className="font-heading text-sm sm:text-base font-semibold tracking-inscription text-foreground">
+            THE NARROW PATH
+          </span>
         </Link>
 
         {/* Desktop Navigation */}
-        <nav className="hidden md:flex items-center gap-6">
+        <nav className="hidden md:flex items-center gap-8">
           <NavLinks />
           <CartDrawer />
         </nav>

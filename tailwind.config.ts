@@ -14,8 +14,14 @@ export default {
     },
     extend: {
       fontFamily: {
+        // UI chrome
         sans: ['Inter', 'system-ui', 'sans-serif'],
-        heading: ['Bebas Neue', 'Impact', 'sans-serif'],
+        // Editorial / body copy — manuscript register, carries Greek
+        serif: ['"EB Garamond"', 'Georgia', 'serif'],
+        // Display — Trajan-derived Roman inscriptional capitals.
+        // Deliberately pre-schism: the lettering of the ancient Church,
+        // so it reads ancient without reading Byzantine-specifically.
+        heading: ['Cinzel', '"EB Garamond"', 'Georgia', 'serif'],
       },
       colors: {
         border: "hsl(var(--border))",

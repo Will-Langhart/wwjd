@@ -62,7 +62,7 @@ export const ProductCard = ({ product }: ProductCardProps) => {
   const currency = node.priceRange.minVariantPrice.currencyCode;
 
   return (
-    <Card className="group overflow-hidden transition-all duration-300 hover:shadow-[var(--shadow-elegant)]">
+    <Card className="group overflow-hidden transition-all duration-300 hover:shadow-[var(--shadow-raise)] hover:border-foreground/20">
       <Link to={`/product/${node.handle}`}>
         <div className="aspect-square overflow-hidden bg-secondary/10 relative">
           {images.length > 0 ? (
@@ -70,7 +70,7 @@ export const ProductCard = ({ product }: ProductCardProps) => {
               <img
                 src={images[0].node.url}
                 alt={images[0].node.altText || node.title}
-                className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+                className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
               />
             ) : (
               <Carousel className="w-full h-full">
@@ -110,24 +110,24 @@ export const ProductCard = ({ product }: ProductCardProps) => {
       
       <CardContent className="p-4">
         <Link to={`/product/${node.handle}`}>
-          <h3 className="font-semibold text-lg mb-2 line-clamp-2 hover:text-primary transition-colors">
+          <h3 className="font-serif text-lg leading-snug mb-2 line-clamp-2 hover:text-primary transition-colors">
             {node.title}
           </h3>
         </Link>
         {node.description && (
-          <p className="text-sm text-muted-foreground line-clamp-2 mb-2">
+          <p className="font-serif text-sm text-muted-foreground line-clamp-2 mb-3">
             {node.description}
           </p>
         )}
-        <p className="text-xl font-bold text-foreground">
-          {currency} ${price}
+        <p className="font-serif text-lg text-foreground">
+          <span className="text-muted-foreground text-sm">{currency}</span> ${price}
         </p>
       </CardContent>
       
       <CardFooter className="p-4 pt-0">
         <Button 
           onClick={handleAddToCart}
-          className="w-full group-hover:bg-accent group-hover:text-accent-foreground transition-colors"
+          className="w-full btn-ink text-xs"
         >
           <ShoppingCart className="w-4 h-4 mr-2" />
           Add to Cart
